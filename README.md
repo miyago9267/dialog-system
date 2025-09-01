@@ -102,12 +102,8 @@
 - 新 op：
   - 依樣在 `operations/` 下新增檔案，並在 tick 的分派區塊加入對應判斷。
 
-## 疑難排解（Debug）
+## Debug
 
 - tp 錨點：`operations/tp.mcfunction` 會在寫入 `Pos` 後以 `[TP Anchor]` 輸出座標；若沒有看到，表示 `current.pos` 可能格式不符。
 - 計分板：若 `dialog_timer` 未建立，請重新執行 `function dialogtest:init`。
 - 沒有播放：確認 `run.playing` 是否為 1b、佇列是否非空、`run.cd` 是否為 0。
-
----
-
-作者：你可以在 `README.md` 末尾補充自己的備註、流程圖或路線規劃。
