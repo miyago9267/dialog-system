@@ -1,0 +1,1 @@
+$tp $(target) $(to_x) $(to_y) $(to_z)
