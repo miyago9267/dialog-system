@@ -18,7 +18,7 @@ data modify storage dialogtest:story current set from storage dialogtest:story c
 # call method by op
 execute if data storage dialogtest:story current{op:"tellraw"} run function dialogtest:operations/tellraw
 execute if data storage dialogtest:story current{op:"tp"} run function dialogtest:operations/tp
-execute if data storage dialogtest:story current{op:"cmd"} run function dialogtest:operations/cmd
+execute if data storage dialogtest:story current{op:"cmd"} run function dialogtest:operations/cmd with storage dialogtest:story current.fn
 execute if data storage dialogtest:story current{op:"aj_play"} run function dialogtest:operations/aj
 execute if data storage dialogtest:story current{op:"wait"} run function dialogtest:operations/wait
 ## could extended
