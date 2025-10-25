@@ -1,0 +1,1 @@
+$function dialogtest:$(chapter)/$(paragraph)/$(dialog)
