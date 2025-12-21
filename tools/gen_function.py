@@ -39,7 +39,7 @@ def make_step(
 	key = f"{namespace}.{chapter}.{paragraph}.line{index + 1}"
 	payload = {"translate": key}
 	if is_player_line:
-		payload["with"] = [{"selector": "@p"}]
+		payload["with"] = [{"selector": "@p","color": "aqua"}]
 	lines = [f"tellraw @a {json.dumps(payload, ensure_ascii=False)}", ""]
 	if index == total - 1:
 		lines.extend(
