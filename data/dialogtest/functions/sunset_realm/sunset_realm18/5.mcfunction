@@ -1,4 +1,4 @@
-tellraw @a {"translate": "story.sunset_realm.sunset_realm18.line6", "with": [{"selector": "@p","color": "aqua"}]}
+tellraw @a {"translate": "story.sunset_realm.sunset_realm18.line6", "with": [{"selector": "@e[tag=PlayerName]","color": "aqua"}]}
 
 data modify storage dialogtest:story run.playing set value 0b
 data modify storage dialogtest:story run.cd set value 40
