@@ -10,7 +10,7 @@ execute if score _cd dialog_timer matches 1.. run scoreboard players remove _cd 
 execute if score _cd dialog_timer matches 1.. run execute store result storage dialogtest:story run.cd int 1 run scoreboard players get _cd dialog_timer
 execute if score _cd dialog_timer matches 1.. run return 0
 
-execute if data storage dialogtest:story run.chapter run function dialogtest:list with storage dialogtest:story run
+execute if score _playing dialog_timer matches 1 if data storage dialogtest:story run.chapter run function dialogtest:list with storage dialogtest:story run
 
 # set delay time
 scoreboard players set _wt dialog_timer 0
