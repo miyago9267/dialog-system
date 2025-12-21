@@ -1,4 +1,4 @@
-tellraw @a {"translate":"story.sunset_realm.sunset_realm9.line14"}
+tellraw @a {"translate": "story.sunset_realm.sunset_realm9.line14"}
 
 data modify storage dialogtest:story run.playing set value 0b
 data modify storage dialogtest:story run.cd set value 40

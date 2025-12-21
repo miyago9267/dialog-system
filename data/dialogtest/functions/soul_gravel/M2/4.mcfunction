@@ -1,4 +1,4 @@
-tellraw @a {"translate":"story.soul_gravel.M2.line5"}
+tellraw @a {"translate": "story.soul_gravel.M2.line5"}
 
 data modify storage dialogtest:story run.playing set value 0b
 data modify storage dialogtest:story run.cd set value 40

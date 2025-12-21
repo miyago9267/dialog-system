@@ -1,4 +1,4 @@
-tellraw @a {"translate":"story.ghost_town.ghost_town4.line2"}
+tellraw @a {"translate": "story.ghost_town.ghost_town4.line2"}
 
 data modify storage dialogtest:story run.cd set value 40
 data modify storage dialogtest:story run.dialog set value 2

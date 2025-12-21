@@ -1,4 +1,4 @@
-tellraw @a {"translate":"story.grass.grass2.line8"}
+tellraw @a {"translate": "story.grass.grass2.line8", "with": [{"selector": "@p"}]}
 
 data modify storage dialogtest:story run.playing set value 0b
 data modify storage dialogtest:story run.cd set value 40

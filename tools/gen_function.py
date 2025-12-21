@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 
@@ -26,9 +27,20 @@ data modify storage dialogtest:story run.dialog set value 0
 """
 
 
-def make_step(namespace: str, chapter: str, paragraph: str, index: int, total: int, cooldown: int) -> str:
+def make_step(
+	namespace: str,
+	chapter: str,
+	paragraph: str,
+	index: int,
+	total: int,
+	cooldown: int,
+	is_player_line: bool,
+) -> str:
 	key = f"{namespace}.{chapter}.{paragraph}.line{index + 1}"
-	lines = [f'tellraw @a {{"translate":"{key}"}}', ""]
+	payload = {"translate": key}
+	if is_player_line:
+		payload["with"] = [{"selector": "@p"}]
+	lines = [f"tellraw @a {json.dumps(payload, ensure_ascii=False)}", ""]
 	if index == total - 1:
 		lines.extend(
 			[
@@ -53,11 +65,27 @@ def iter_text_files(source_dir: Path):
 			yield path
 
 
-def read_lines(path: Path, keep_empty: bool) -> list[str]:
+def extract_speaker(raw_line: str) -> str | None:
+	stripped = raw_line.strip().lstrip("\ufeff")
+	if not stripped:
+		return None
+	for sep in (":", "："):
+		if sep in stripped:
+			speaker = stripped.split(sep, 1)[0].strip().strip('\"')
+			return speaker or None
+	return None
+
+
+def read_lines(path: Path, keep_empty: bool) -> tuple[list[str], list[bool]]:
 	raw_lines = path.read_text(encoding="utf-8").splitlines()
-	if keep_empty:
-		return raw_lines
-	return [line for line in raw_lines if line.strip()]
+	lines: list[str] = []
+	player_flags: list[bool] = []
+	for line in raw_lines:
+		if not line.strip() and not keep_empty:
+			continue
+		lines.append(line)
+		player_flags.append(extract_speaker(line) == "主角")
+	return lines, player_flags
 
 
 def main():
@@ -83,7 +111,7 @@ def main():
 
 	for txt_file in iter_text_files(source_dir):
 		paragraph = txt_file.stem
-		lines = read_lines(txt_file, keep_empty=args.keep_empty)
+		lines, player_flags = read_lines(txt_file, keep_empty=args.keep_empty)
 		if not lines:
 			print(f"[WARN] Skip {txt_file.name}: no dialog lines detected")
 			continue
@@ -99,7 +127,15 @@ def main():
 
 		for index, _ in enumerate(lines):
 			step_path = paragraph_dir / f"{index}.mcfunction"
-			step_content = make_step(args.namespace, chapter, paragraph, index, len(lines), args.cooldown)
+			step_content = make_step(
+				args.namespace,
+				chapter,
+				paragraph,
+				index,
+				len(lines),
+				args.cooldown,
+				player_flags[index],
+			)
 			step_path.write_text(step_content, encoding="utf-8")
 
 		print(f"Generated {paragraph} ({len(lines)} dialog steps)")

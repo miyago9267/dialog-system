@@ -1,4 +1,4 @@
-tellraw @a {"translate":"story.forget.forget7.line16"}
+tellraw @a {"translate": "story.forget.forget7.line16"}
 
 data modify storage dialogtest:story run.playing set value 0b
 data modify storage dialogtest:story run.cd set value 40
