@@ -1,6 +1,13 @@
+# check fire story triggers
+function dialogtest:fire/trigger
+
 # return while not playing
 scoreboard players set _playing dialog_timer 0
 execute if data storage dialogtest:story run.playing run execute store result score _playing dialog_timer run data get storage dialogtest:story run.playing 1
+
+# fire1 villager walking and player camera lock (only when playing)
+execute if score _playing dialog_timer matches 1 if data storage dialogtest:story {run:{chapter:"fire",paragraph:"fire1"}} run function dialogtest:fire/fire1/villager_walk
+
 execute unless score _playing dialog_timer matches 1 run return 0
 
 # countdown
