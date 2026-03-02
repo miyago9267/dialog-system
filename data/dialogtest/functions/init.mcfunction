@@ -2,6 +2,8 @@ scoreboard objectives add dialog_timer dummy
 scoreboard players set _playing dialog_timer 0
 scoreboard players set _cd dialog_timer 0
 scoreboard players set _wt dialog_timer 0
+scoreboard players set _scene_tick dialog_timer 0
+scoreboard players set _fire1_villager_walking dialog_timer 0
 
 # fire story triggers
 scoreboard objectives add fire_story dummy
