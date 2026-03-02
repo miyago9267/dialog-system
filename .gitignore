@@ -1,2 +1,5 @@
 static/
 output.txt
+# 忽略 AJ 藍圖與劇情文本
+*.ajblueprint
+*.xlsx
