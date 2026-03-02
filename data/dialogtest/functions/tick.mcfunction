@@ -7,12 +7,13 @@ function dialogtest:water/trigger
 # return while not playing
 scoreboard players set _playing dialog_timer 0
 execute if data storage dialogtest:story run.playing run execute store result score _playing dialog_timer run data get storage dialogtest:story run.playing 1
-
-# fire1 villager walking and player camera lock (only when playing)
-execute if score _playing dialog_timer matches 1 if data storage dialogtest:story {run:{chapter:"fire",paragraph:"fire1"}} run function dialogtest:fire/fire1/villager_walk
-
 execute unless score _playing dialog_timer matches 1 run return 0
 
+# ── 新：時間軸模式（fire1 等） ──────────────────────────────
+execute if data storage dialogtest:story {run:{mode:"timeline"}} run function dialogtest:operations/timeline/tick
+execute if data storage dialogtest:story {run:{mode:"timeline"}} run return 1
+
+# ── 舊：N.mcfunction 模式（fire2/fire3/water/palace 等） ────
 # countdown
 scoreboard players set _cd dialog_timer 0
 execute store result score _cd dialog_timer run data get storage dialogtest:story run.cd 1
@@ -27,5 +28,4 @@ scoreboard players set _wt dialog_timer 0
 execute store result score _wt dialog_timer run data get storage dialogtest:story current.wait.ticks 1
 execute if score _wt dialog_timer matches 1.. run execute store result storage dialogtest:story run.cd int 1 run scoreboard players get _wt dialog_timer
 
-# return success
 return 1
