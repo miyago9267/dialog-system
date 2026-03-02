@@ -1,109 +1,338 @@
-# dialogtest 對話/劇本系統（Minecraft 1.20.4）
+# dialogtest 劇情執行系統文檔
+> Minecraft 1.20.4 · 資料包命名空間：`dialogtest`
 
-輕量的資料驅動劇本執行器：以 storage 作為佇列（queue），每 tick 讀取第一筆步驟，依 `op` 派發對應功能，支援冷卻（`wait.ticks`）、字幕、傳送、呼叫其他指令/功能等。
+---
 
-## 安裝
+## 系統概覽
 
-- 將 `dialogtest` 資料包放入世界存檔的 `datapacks/`。
-- 啟用後，建議在世界載入時執行一次初始化（見下）。
+劇情系統以 **章節（chapter）→ 段落（paragraph）→ 步驟（dialog）** 三層結構組織內容，每 tick 由 `dialogtest:tick` 驅動，自動按步驟執行。
 
-## 初始化
+```
+chapter （章節）
+└── paragraph （段落）            ← 一場戲
+    ├── start.mcfunction          ← 開場：召喚角色、鎖定玩家、啟動播放
+    ├── 0.mcfunction              ← 步驟 0（dialog = 0）
+    ├── 1.mcfunction              ← 步驟 1
+    └── N.mcfunction              ← 最終步驟：清理場景、結束播放
+```
 
-手動執行一次：
+**現有章節：**
+- `fire` — 火之章（段落：fire1, fire2, fire3）
+- `palace` — 宮殿之章（段落：palace1 ~ palace5）
+
+---
+
+## 核心 Storage 結構
+
+```
+storage dialogtest:story
+└── run
+    ├── playing   : 0b | 1b   播放中旗標
+    ├── cd        : int       剩餘冷卻 ticks（>0 時跳過執行本幀）
+    ├── chapter   : string    當前章節名，如 "fire"
+    ├── paragraph : string    當前段落名，如 "fire1"
+    └── dialog    : int       當前步驟編號（對應 N.mcfunction）
+```
+
+---
+
+## 主循環（dialogtest:tick）
+
+每 tick 執行：
+1. 呼叫各章節的 `trigger.mcfunction`（如 `fire/trigger`）偵測觸發條件
+2. 若 `run.playing != 1b` → return
+3. 若 `run.cd > 0` → 倒數一格後 return（等待冷卻中）
+4. 冷卻結束 → 呼叫 `dialogtest:list with storage dialogtest:story run`
+5. `list.mcfunction` 展開 macro：`$function dialogtest:$(chapter)/$(paragraph)/$(dialog)`
+   → 即呼叫 `dialogtest:<chapter>/<paragraph>/<dialog>.mcfunction`
+
+---
+
+## 寫一個新段落
+
+### 1. `start.mcfunction`（開場，由觸發器直接呼叫）
 
 ```mcfunction
-/function dialogtest:init
+# 防止重複觸發（搭配 trigger.mcfunction 使用）
+scoreboard players set my_scene_triggered my_story 1
+
+# 場景準備：鎖定玩家視角
+effect give @a slowness 999999 255 true
+effect give @a jump_boost 999999 128 true
+effect give @a blindness 1 0 true   # 短暫遮黑轉場
+
+# 召喚 NPC、傳送玩家等（見 AJ 整合章節）
+# ...
+
+# 啟動播放系統（必填，順序固定）
+data modify storage dialogtest:story run.playing set value 1b
+data modify storage dialogtest:story run.cd set value 1
+data modify storage dialogtest:story run.chapter set value "chapter_name"
+data modify storage dialogtest:story run.paragraph set value "paragraph_name"
+data modify storage dialogtest:story run.dialog set value 0
 ```
 
-作用：
+### 2. 步驟函數（N.mcfunction）
 
-- 建立計分板目標：`dialog_timer`。
-- 建立第一章資料：`function dialogtest:chapter1/init`。
+**標準格式（字幕步驟）：**
+```mcfunction
+# 顯示字幕（使用 resource pack translate key）
+tellraw @a {"translate": "story.chapter.paragraph.lineN"}
 
-如需自動化，請在 `data/minecraft/tags/functions/load.json` 與 `tick.json` 中掛載 `dialogtest:init` 與 `dialogtest:tick`。
+# 設定下一步等待時間（必填）
+data modify storage dialogtest:story run.cd set value 40
 
-## Main Loop
-
-由 `function dialogtest:tick` 負責：
-
-1. 若 `run.playing != 1b` 直接 return。
-2. 若 `run.cd > 0` → 倒數後 return。
-3. 取隊首 `chapters.chapter1[0]` 到 `current`。
-4. 依 `current.op` 派發到對應 operations 函式。
-5. 若 `current.wait.ticks` 存在，將其寫入 `run.cd` 作為下一步延遲。
-6. 移除隊首（左移）。
-
-## 資料結構（storage dialogtest:story）
-
-```json
-{
-    "run": { "id": "chapter1", "cd": 0, "playing": 0 },
-    "chapters": {
-        "chapter1": [
-            { "op": "tellraw", "text": "<text_component>", "wait": { "ticks": 40 } },
-            { "op": "tp", "target": "@a", "pos": [0, 100, 0] }
-        ]
-    },
-    "current": "<由系統在 tick 時暫存的目前步驟>"
-}
+# 指向下一步（必填）
+data modify storage dialogtest:story run.dialog set value <N+1>
 ```
 
-說明：
+**帶角色名的字幕（告訴玩家是誰在說話）：**
+```mcfunction
+tellraw @a {"translate": "story.chapter.paragraph.lineN", "with": [{"selector": "@e[tag=PlayerName]", "color": "aqua"}]}
+```
 
-- `run.playing`: 1b 表播放中；0b 表停止。
-- `run.cd`: tick 倒數；>0 時先倒數後 return。
-- `chapters.chapter1`: 劇本步驟佇列（從左到右執行）。
-- `current`: 每 tick 將佇列第一筆複製到此供 operations 使用。
+**附帶動作的步驟（如播放動畫）：**
+```mcfunction
+tellraw @a {"translate": "story.chapter.paragraph.lineN"}
 
-## 支援的 op
+# 播放 AJ 動畫
+execute as @e[tag=MY_CHAR] run function animated_java:character/animations/nod/play
 
-- `tellraw`：
-  - 欄位：`text`（Text Component 字串，支援 translate/with/selector 等）
-  - 實作：`dialogtest:operations/tellraw`，廣播給全體玩家。
-- `tp`：
-  - 欄位：
-    - `target`: "@a" | "@p"（省略預設 `@a`）
-    - `pos`: [x,y,z]（任意座標，動態支持；以臨時 `interaction` 實體為錨點傳送）
-    - `loc`: 具名地點（可自訂在 tp.mcfunction 內的對應）
-- 實作：`dialogtest:operations/tp`
-  - 若 `pos` 存在：
-    1) 召喚臨時 `interaction`，將 `pos` 寫入其 `Pos[0..2]`。
-    2) 依 `target` 將玩家傳送至該實體。
-    3) 刪除臨時實體。
-  - 若 `pos` 不存在而 `loc` 存在：以對應座標傳送。
-- `cmd` / `aj_play` / `wait`：
-  - 預留分派點，尚未實作 `data/dialogtest/functions/operations/`。
+data modify storage dialogtest:story run.cd set value 40
+data modify storage dialogtest:story run.dialog set value <N+1>
+```
 
-## 建立劇本
+**冷卻時長參考：**
+| 時長 | ticks | 使用情境 |
+|------|-------|----------|
+| 1 秒 | 20 | 短暫停頓 |
+| 2 秒 | 40 | 標準對話行 |
+| 3 秒 | 60 | 較長字幕 |
+| 自訂 | 任意 | 依實際節奏調整 |
 
-`function dialogtest:chapter1/init` 已示範三步：
-
-1) 顯示第一句字幕並等待 40t
-2) 顯示第二句字幕並等待 60t
-3) 傳送全體玩家到 [x, y, z]
-
-啟動播放：
+### 3. 最終步驟（段落結尾，dialog = N）
 
 ```mcfunction
-/function dialogtest:chapter1/main
+# 最後一句字幕（選用）
+tellraw @a {"translate": "story.chapter.paragraph.lastline"}
+
+# 解除玩家鎖定
+effect clear @a slowness
+effect clear @a jump_boost
+
+# 移除 AJ 角色與其他臨時實體
+execute as @e[tag=MY_CHAR] run function animated_java:character/remove/this
+kill @e[tag=scene_entities]
+
+# 結束播放（必填）
+data modify storage dialogtest:story run.playing set value 0b
+data modify storage dialogtest:story run.cd set value 40
+data modify storage dialogtest:story run.dialog set value 0
 ```
 
-內容：
+---
 
-- 將 `run.playing` 設為 1b、`run.cd` 設為 1，tick 便開始處理佇列。
+## 觸發器（trigger.mcfunction）
 
-## 擴充
+位於 `functions/<chapter>/trigger.mcfunction`，在 `tick.mcfunction` 中每 tick 呼叫。
 
-- 文本維護：
-  - 優先使用 resource pack 的 `translate` key，避免在 mcfunction 中寫長 JSON。
-  - 若仍需長文本，建議拆分到獨立 function 檔僅做 set value，主腳本用 `function ...` 載入。
-- 章節切換：
-  - 將 `run.id` 作為章節名稱；若要切換章節，將推入的陣列改為 `chapters.<id>`，tick 內亦可依 `run.id` 讀取對應佇列（目前示例固定使用 `chapter1`）。
-- 新 op：
-  - 依樣在 `operations/` 下新增檔案，並在 tick 的分派區塊加入對應判斷。
+**位置觸發（玩家走近特定座標）：**
+```mcfunction
+execute unless score scene1_triggered my_story matches 1 \
+    positioned X Y Z if entity @a[distance=..R] \
+    run function dialogtest:chapter/paragraph/start
+```
 
-## Debug
+**計分板旗標觸發（可由外部事件手動設定）：**
+```mcfunction
+# 觸發條件：scoreboard players set scene3_trigger my_story 1
+execute if score scene3_trigger my_story matches 1.. \
+    unless score scene3_triggered my_story matches 1 \
+    run function dialogtest:chapter/paragraph/start
+# 消費旗標（防止重複觸發）
+execute if score scene3_trigger my_story matches 1.. \
+    run scoreboard players set scene3_trigger my_story 0
+```
 
-- tp 錨點：`operations/tp.mcfunction` 會在寫入 `Pos` 後以 `[TP Anchor]` 輸出座標；若沒有看到，表示 `current.pos` 可能格式不符。
-- 計分板：若 `dialog_timer` 未建立，請重新執行 `function dialogtest:init`。
-- 沒有播放：確認 `run.playing` 是否為 1b、佇列是否非空、`run.cd` 是否為 0。
+> **Note：** 各章節使用自己的計分板，如 `fire_story`、`water_story`。
+
+---
+
+## Tick 背景動作
+
+部分動作需每 tick 持續執行（如 NPC 移動、持續動畫判斷），在 `tick.mcfunction` 中加入段落判斷：
+
+```mcfunction
+execute if score _playing dialog_timer matches 1 \
+    if data storage dialogtest:story {run:{chapter:"fire",paragraph:"fire1"}} \
+    run function dialogtest:fire/fire1/villager_walk
+```
+
+---
+
+## Animated Java (AJ) 整合
+
+### 系統資訊
+
+| 項目 | 值 |
+|------|----|
+| AJ 函數命名空間 | `animated_java:character` |
+| 顯示道具 | `minecraft:white_dye` |
+| 根實體標籤 | `aj.character.root` |
+| 驅動資料包 | `animated`（世界存檔 datapacks 內） |
+| 模型資源包 | `end_of_memories_resource` |
+
+### 可用外觀（Variant）
+
+| Variant 名稱 | 角色 |
+|--------------|------|
+| `default` | 預設（米加萊） |
+| `migale` | 米加萊 |
+| `blackforge` | 黑鍛 |
+| `union` | 尤尼恩 |
+| `dandebondo` | 丹德邦多 |
+| `shliaka` | 絲里亞卡 |
+| `firegod` | 火神 |
+| `lightgod` | 光神 |
+| `watergod` | 水神 |
+| `woodgod` | 木神 |
+
+### 可用動畫
+
+| 動畫名稱 | 類型 | 時長 | 說明 |
+|----------|------|------|------|
+| `breath` | **循環** | ∞ | 待機呼吸（適合作為預設動畫） |
+| `animation_model_walk` | **循環** | ∞ | 行走 |
+| `nod` | 一次性 | ~30f | 點頭 |
+| `shakehead` | 一次性 | - | 搖頭（表示否定） |
+| `sidehead` | 一次性 | - | 側頭（表示疑問） |
+| `bow` | 一次性 | - | 鞠躬 |
+| `resetbow` | 一次性 | - | 鞠躬後回正 |
+| `hello` | 一次性 | - | 打招呼揮手 |
+| `wavehand` | 一次性 | - | 揮手 |
+| `give` | 一次性 | - | 遞出東西 |
+| `kick` | 一次性 | - | 踢腿 |
+| `jump` | 一次性 | - | 跳躍 |
+| `jumpinplace` | 一次性 | - | 原地跳 |
+| `resethead` | 一次性 | - | 頭部姿勢回正 |
+
+### 召喚角色
+
+```mcfunction
+# 在指定位置、朝向召喚並套用 variant 外觀
+execute positioned X Y Z rotated YAW 0 run function animated_java:character/summon {args: {variant: 'VARIANT'}}
+
+# 加上自訂標籤（便於後續控制，MY_TAG 自定義）
+execute positioned X Y Z run tag @e[sort=nearest,limit=1,tag=aj.character.root,distance=..2] add MY_TAG
+```
+
+### 控制動畫（必須 as 根實體執行）
+
+```mcfunction
+# 播放動畫
+execute as @e[tag=MY_TAG] run function animated_java:character/animations/ANIM_NAME/play
+
+# 停止動畫
+execute as @e[tag=MY_TAG] run function animated_java:character/animations/ANIM_NAME/stop
+
+# 移除整個角色（含所有骨骼實體）
+execute as @e[tag=MY_TAG] run function animated_java:character/remove/this
+```
+
+### 動畫組合：一次性 → 回復循環
+
+> **重要：** 同時播放兩個動畫會衝突（都嘗試設定骨骼位置）。
+> 播放新動畫前請先停止舊動畫。
+
+**模式：** 停止待機 → 播放一次性 → 計時重啟待機
+```mcfunction
+# 步驟 N.mcfunction 中：
+# 1. 停止待機動畫
+execute as @e[tag=MY_TAG] run function animated_java:character/animations/breath/stop
+# 2. 播放一次性動畫（以 nod 為例，約 30 ticks 後自動停止）
+execute as @e[tag=MY_TAG] run function animated_java:character/animations/nod/play
+# 3. 31 ticks 後重啟 breath
+schedule function dialogtest:my_chapter/my_para/aj_resume_breath 31t
+
+data modify storage dialogtest:story run.cd set value 40
+data modify storage dialogtest:story run.dialog set value <N+1>
+```
+
+`aj_resume_breath.mcfunction`：
+```mcfunction
+execute as @e[tag=MY_TAG] run function animated_java:character/animations/breath/play
+```
+
+### 更換外觀（Variant）
+
+```mcfunction
+# 切換角色皮膚（在角色召喚後執行）
+execute as @e[tag=MY_TAG] run function animated_java:character/variants/VARIANT/apply
+```
+
+---
+
+## operations/aj 框架（選用）
+
+`dialogtest:operations/aj` 提供統一的 AJ 操作介面，內部使用 macro 展開：
+
+```mcfunction
+# 召喚（action: "create"）
+data modify storage dialogtest:story current set value {action:"create",args:{tag:"MY_TAG",variant:"union",x:-2029,y:13,z:1764,rot:40}}
+function dialogtest:operations/aj
+
+# 播放動畫（action: "play"）
+data modify storage dialogtest:story current set value {action:"play",args:{tag:"MY_TAG",anim:"breath"}}
+function dialogtest:operations/aj
+
+# 停止動畫（action: "stop"）
+data modify storage dialogtest:story current set value {action:"stop",args:{tag:"MY_TAG",anim:"breath"}}
+function dialogtest:operations/aj
+
+# 移除角色（action: "end"）
+data modify storage dialogtest:story current set value {action:"end",args:{tag:"MY_TAG"}}
+function dialogtest:operations/aj
+```
+
+---
+
+## translate key 命名規範
+
+字幕統一使用 Resource Pack 的 translate key，不在 mcfunction 中寫死文字：
+
+```
+story.<章節>.<段落>.<行號>
+```
+
+例：`story.fire.fire1.line1`、`story.palace.palace3.line7`
+
+在 `end_of_memories_resource/assets/minecraft/lang/zh_tw.json` 中定義對應文字。
+
+---
+
+## 完整新段落流程（Quick Start）
+
+1. 建立 `functions/<chapter>/<paragraph>/start.mcfunction`
+2. 建立 `functions/<chapter>/<paragraph>/0.mcfunction` ~ `N.mcfunction`
+3. 在 `functions/<chapter>/trigger.mcfunction` 加入觸發條件
+4. 在 lang 檔新增 translate key
+5. 若有 tick 背景動作，在 `functions/tick.mcfunction` 加入判斷
+
+---
+
+## Debug 小抄
+
+```mcfunction
+# 查看當前播放狀態
+data get storage dialogtest:story run
+
+# 手動跳到某一步
+data modify storage dialogtest:story run.dialog set value 5
+data modify storage dialogtest:story run.cd set value 1
+
+# 強制結束播放
+data modify storage dialogtest:story run.playing set value 0b
+
+# 重設某段落觸發旗標（可重新觸發）
+scoreboard players set fire1_triggered fire_story 0
+```
