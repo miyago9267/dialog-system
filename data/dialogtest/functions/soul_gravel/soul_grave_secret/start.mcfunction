@@ -1,5 +1,15 @@
+
+
+# ── 時間軸資料 ──────────────────────────────────────────────
+# text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
+data modify storage dialogtest:story run.text set value [{t:0,type:"text",key:"story.soul_gravel.soul_grave_secret.line1"}]
+
+# ctrl 軌：最後一行顯示後 40 ticks 結束場景
+data modify storage dialogtest:story run.ctrl set value [{t:40,type:"fn",fn:"dialogtest:operations/timeline/end"}]
+
+# ── 啟動時間軸 ──────────────────────────────────────────────
+scoreboard players set _scene_tick dialog_timer 0
 data modify storage dialogtest:story run.playing set value 1b
-data modify storage dialogtest:story run.cd set value 1
-data modify storage dialogtest:story run.chapter set value soul_gravel
-data modify storage dialogtest:story run.paragraph set value soul_grave_secret
-data modify storage dialogtest:story run.dialog set value 0
+data modify storage dialogtest:story run.mode set value "timeline"
+data modify storage dialogtest:story run.scene set value "soul_gravel_soul_grave_secret"
+data modify storage dialogtest:story run.scene_tick set value 0
