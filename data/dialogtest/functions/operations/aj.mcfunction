@@ -1,16 +1,16 @@
 # animated java operation
-# Schema
-# - storage dialogtest:story current.action -> "create" | "play" | "stop"
-# - storage dialogtest:story current.args -> {arg1:value1, arg2:value2, ...}
-## if (action == "create")
-### - storage dialogtest:story current.args.name -> "name_of_animation"
+# Schema:
+# - storage dialogtest:story current.action -> "create" | "play" | "stop" | "end"
+# - storage dialogtest:story current.args:
+#   create: {tag: "entity_tag", variant: "variant_name", x: ..., y: ..., z: ..., rot: ...}
+#   play:   {tag: "entity_tag", anim: "animation_name"}
+#   stop:   {tag: "entity_tag", anim: "animation_name"}
+#   end:    {tag: "entity_tag"}
+#
+# Available variants: default, migale, blackforge, union, dandebondo, shliaka, firegod, lightgod, watergod, woodgod
+# Available anims: animation_model_walk, bow, breath, give, hello, jump, jumpinplace, kick, nod, resetbow, resethead, shakehead, sidehead, wavehand
 
-data modify storage dialogtest:story teleport set value {}
-
-data modify storage dialogtest:story teleport.action set from storage dialogtest:story current.action
-
-data modify storage dialogtest:story teleport.to_x set from storage dialogtest:story current.pos[0]
-data modify storage dialogtest:story teleport.to_y set from storage dialogtest:story current.pos[1]
-data modify storage dialogtest:story teleport.to_z set from storage dialogtest:story current.pos[2]
-
-function dialogtest:operations/teleport/main with storage dialogtest:story teleport
+execute if data storage dialogtest:story {current:{action:"create"}} run function dialogtest:operations/aj/create with storage dialogtest:story current.args
+execute if data storage dialogtest:story {current:{action:"play"}} run function dialogtest:operations/aj/start with storage dialogtest:story current.args
+execute if data storage dialogtest:story {current:{action:"stop"}} run function dialogtest:operations/aj/stop with storage dialogtest:story current.args
+execute if data storage dialogtest:story {current:{action:"end"}} run function dialogtest:operations/aj/end with storage dialogtest:story current.args
