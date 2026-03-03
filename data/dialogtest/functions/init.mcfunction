@@ -20,5 +20,9 @@ scoreboard players set water3_triggered water_story 0
 scoreboard players set water4_triggered water_story 0
 scoreboard players set water4_trigger water_story 0
 
+# 跳過劇情 trigger（非 op 玩家可用）
+scoreboard objectives add skip_scene trigger
+scoreboard players set _skip_triggered dialog_timer 0
+
 data modify storage dialogtest:story run.playing set value 0b
 
