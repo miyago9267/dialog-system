@@ -9,6 +9,13 @@ scoreboard players set _playing dialog_timer 0
 execute if data storage dialogtest:story run.playing run execute store result score _playing dialog_timer run data get storage dialogtest:story run.playing 1
 execute unless score _playing dialog_timer matches 1 run return 0
 
+# 檢測跳過觸發（trigger）
+scoreboard players set _skip_triggered dialog_timer 0
+execute if entity @a[scores={skip_scene=1..}] run scoreboard players set _skip_triggered dialog_timer 1
+scoreboard players set @a[scores={skip_scene=1..}] skip_scene 0
+execute if score _skip_triggered dialog_timer matches 1 run function dialogtest:skip
+execute if score _skip_triggered dialog_timer matches 1 run return 0
+
 # ── 新：時間軸模式（fire1 等） ──────────────────────────────
 execute if data storage dialogtest:story {run:{mode:"timeline"}} run function dialogtest:operations/timeline/tick
 execute if data storage dialogtest:story {run:{mode:"timeline"}} run return 1
