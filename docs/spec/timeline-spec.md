@@ -153,7 +153,10 @@ ctrl:                                                  [cleanup]
 
 ```text
 tick.mcfunction
-  |-- 觸發器檢查（fire/trigger, water/trigger 等，永遠執行）
+  |-- fire/trigger（永遠執行）
+  |-- water/trigger（永遠執行）
+  |-- grass/trigger（永遠執行）
+  |-- light/trigger（永遠執行）
   |-- if playing = 0b -> return 0（非播放中直接返回）
   |-- 跳過檢查（skip_scene trigger）
   |-- if mode = "timeline" -> operations/timeline/tick -> return 1
@@ -250,10 +253,43 @@ data remove storage dialogtest:story run.mode
 
 觸發器定義在 `<chapter>/trigger.mcfunction`，由主 `tick.mcfunction` 每 tick 無條件執行。
 
+### 7.1 已註冊的觸發器
+
+| 觸發器檔案 | scoreboard | 場景數 |
+| :--- | :--- | :--- |
+| `fire/trigger.mcfunction` | `fire_story` | 3（fire1-3） |
+| `water/trigger.mcfunction` | `water_story` | 4（water1-4） |
+| `grass/trigger.mcfunction` | `grass_story` | 4（grass1-4） |
+| `light/trigger.mcfunction` | `light_story` | 4（light1-4） |
+
+### 7.2 觸發類型
+
+**座標觸發**（玩家進入半徑 3 格內）：
+
 ```mcfunction
 execute unless score <scene>_triggered <story_obj> matches 1 \
-    if entity @a[distance=..5] \
+    positioned <X> <Y> <Z> if entity @a[distance=..3] \
     run function dialogtest:<chapter>/<scene>/start
+```
+
+**trigger 變數觸發**（外部設定後觸發，用於 BOSS 擊敗等）：
+
+```mcfunction
+execute if score <scene>_trigger <story_obj> matches 1.. \
+    unless score <scene>_triggered <story_obj> matches 1 \
+    run function dialogtest:<chapter>/<scene>/start
+# 同時設定 triggered = 1 並重置 trigger = 0
+```
+
+### 7.3 前置條件
+
+可在觸發條件中加入額外判斷，如 water3 需先完成 water2：
+
+```mcfunction
+execute unless score water3_triggered water_story matches 1 \
+    if score water2_triggered water_story matches 1 \
+    positioned -1749 12 1570 if entity @a[distance=..3] \
+    run function dialogtest:water/water3/start
 ```
 
 ---
@@ -296,3 +332,27 @@ cleanup / 另一個 fn 事件 -> 設定 flag = 0
 - **軌道推進順序固定**：text -> union -> villager -> ctrl，不可更改。
 - **同 tick 多事件**：advance 使用遞迴處理，同一 tick 內所有 `t` 值相同的事件會連續派發。
 - **首 tick 為 1**：`_scene_tick` 在啟動後的第一個 tick 從 0 加到 1，因此事件的最小 `t` 值通常設為 0（在 tick 1 時觸發）。
+
+---
+
+## 11. 座標映射工具
+
+`tools/update_triggers.py` 集中管理所有座標觸發場景的座標。
+
+```bash
+# 預覽變更
+python tools/update_triggers.py
+
+# 套用變更
+python tools/update_triggers.py --apply
+```
+
+修改腳本開頭的 `TRIGGER_COORDS` 字典即可：
+
+```python
+TRIGGER_COORDS = {
+    "fire/fire1":   (-2031, 14, 1760),
+    "grass/grass2": None,               # None = 座標待確認，不更新
+    "light/light1": (-500, 10, 2000),   # 填入座標後執行 --apply
+}
+```
