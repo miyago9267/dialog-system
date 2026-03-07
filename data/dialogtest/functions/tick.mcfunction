@@ -4,6 +4,12 @@ function dialogtest:fire/trigger
 # check water story triggers
 function dialogtest:water/trigger
 
+# check grass story triggers
+function dialogtest:grass/trigger
+
+# check light story triggers
+function dialogtest:light/trigger
+
 # return while not playing
 scoreboard players set _playing dialog_timer 0
 execute if data storage dialogtest:story run.playing run execute store result score _playing dialog_timer run data get storage dialogtest:story run.playing 1

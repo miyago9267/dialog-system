@@ -1,4 +1,5 @@
-
+# 設置已觸發，防止重複執行
+scoreboard players set grass1_triggered grass_story 1
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）

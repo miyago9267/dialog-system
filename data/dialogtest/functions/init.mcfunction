@@ -20,6 +20,22 @@ scoreboard players set water3_triggered water_story 0
 scoreboard players set water4_triggered water_story 0
 scoreboard players set water4_trigger water_story 0
 
+# grass story triggers
+scoreboard objectives add grass_story dummy
+scoreboard players set grass1_triggered grass_story 0
+scoreboard players set grass2_triggered grass_story 0
+scoreboard players set grass3_triggered grass_story 0
+scoreboard players set grass4_triggered grass_story 0
+scoreboard players set grass4_trigger grass_story 0
+
+# light story triggers
+scoreboard objectives add light_story dummy
+scoreboard players set light1_triggered light_story 0
+scoreboard players set light2_triggered light_story 0
+scoreboard players set light3_triggered light_story 0
+scoreboard players set light4_triggered light_story 0
+scoreboard players set light4_trigger light_story 0
+
 # 跳過劇情 trigger（非 op 玩家可用）
 scoreboard objectives add skip_scene trigger
 scoreboard players set _skip_triggered dialog_timer 0
