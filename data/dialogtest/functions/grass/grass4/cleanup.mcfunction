@@ -1,0 +1,12 @@
+# grass4 場景清理（ctrl 軌觸發）
+
+# 解除玩家鎖定
+effect clear @a slowness
+effect clear @a jump_boost
+
+# 移除 AJ 角色（麥洛倪雅莎）
+execute as @e[tag=woodgod] run function animated_java:character/remove/this
+
+# 結束時間軸
+data modify storage dialogtest:story run.playing set value 0b
+data remove storage dialogtest:story run.mode
