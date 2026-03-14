@@ -14,8 +14,18 @@ execute if data storage dialogtest:story {run:{villager_walk_phase:1}} \
     unless entity @s[x=-2028,y=13,z=1769,distance=..0.3] \
     run function dialogtest:fire/fire1/villager_walk_step_10
 
-# Phase 2：走向 -2030 13 1759（靜水台深處）
+# Phase 2：走向中繼點 -2027 13 1762（繞過 union 東側）
 execute if data storage dialogtest:story {run:{villager_walk_phase:2}} \
     as @e[name="鐵匠賽克",tag=fire1] at @s \
-    unless entity @s[x=-2030,y=13,z=1759,distance=..0.3] \
+    if entity @s[x=-2027,y=13,z=1762,distance=..1] \
+    run data modify storage dialogtest:story run.villager_walk_phase set value 3
+execute if data storage dialogtest:story {run:{villager_walk_phase:2}} \
+    as @e[name="鐵匠賽克",tag=fire1] at @s \
+    unless entity @s[x=-2027,y=13,z=1762,distance=..1] \
     run function dialogtest:fire/fire1/villager_walk_step
+
+# Phase 3：走向最終目的地 -2030 13 1759（靜水台深處）
+execute if data storage dialogtest:story {run:{villager_walk_phase:3}} \
+    as @e[name="鐵匠賽克",tag=fire1] at @s \
+    unless entity @s[x=-2030,y=13,z=1759,distance=..0.3] \
+    run function dialogtest:fire/fire1/villager_walk_step_final

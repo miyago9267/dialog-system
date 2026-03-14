@@ -6,4 +6,4 @@
 tp @s ~ ~ ~ facing -2028 13 1769
 
 # 小步前進
-execute at @s run tp @s ^ ^ ^0.05
+execute at @s run tp @s ^ ^ ^0.07

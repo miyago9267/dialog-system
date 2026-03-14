@@ -1,5 +1,8 @@
 # 村民到達-2028 13 1769後的處理
-# 轉向-2025 13 1771並發出叫聲
+# 轉向-2025 13 1771並發出叫聲（只執行一次）
+
+# 標記 phase 完成，避免每 tick 重複執行
+data modify storage dialogtest:story run.villager_walk_phase set value 0
 
 # 轉向目標位置
 execute as @e[name="鐵匠賽克",tag=fire1] at @s run tp @s ~ ~ ~ facing -2025 13 1771
