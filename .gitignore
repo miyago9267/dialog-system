@@ -3,3 +3,9 @@ output.txt
 # 忽略 AJ 藍圖與劇情文本
 *.ajblueprint
 *.xlsx
+# NPC 圖片素材
+npc/
+# Python 快取與工具輸出
+__pycache__/
+tools/__pycache__/
+tools/output.json
