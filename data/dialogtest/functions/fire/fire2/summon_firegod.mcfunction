@@ -9,7 +9,7 @@ execute positioned -2385 18 1727 rotated -90 0 run function animated_java:charac
 execute positioned -2385 18 1727 run tag @e[sort=nearest,limit=1,tag=aj.character.root] add firegod
 
 # 召喚名牌
-summon item_display -2385 18 1727 {CustomName:'{"text":"阿多賽忒喀","color":"red","bold":true}',CustomNameVisible:1b,Item:{id:"minecraft:barrier",Count:1b},Invisible:1b,Tags:["fire2_entity"]}
+summon text_display -2385 22 1727 {text:'{"text":"阿多賽忒喀","color":"red","bold":true}',billboard:"center",Tags:["fire2_entity"]}
 
 # 爆炸音效
 execute at @a run playsound minecraft:entity.generic.explode ambient @a ^ ^ ^

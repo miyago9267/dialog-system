@@ -12,7 +12,7 @@ tp @a -2400 18 1724 -70 0
 # 召喚 AJ 角色（尤尼恩）
 execute positioned -2397 18 1729 rotated 40 0 run function animated_java:character/summon {args: {variant: 'union'}}
 execute positioned -2397 18 1729 run tag @e[sort=nearest,limit=1,tag=aj.character.root] add union
-summon item_display -2397 18 1729 {CustomName:'{"text":"尤尼恩","color":"white","bold":true}',CustomNameVisible:1b,Item:{id:"minecraft:barrier",Count:1b},Invisible:1b,Tags:["fire2_entity"]}
+summon text_display -2397 20 1729 {text:'{"text":"尤尼恩","color":"white","bold":true}',billboard:"center",Tags:["fire2_entity"]}
 tp @e[tag=union] -2397 18 1729 -110 0
 
 # 給尤尼恩戴上玩家頭顱

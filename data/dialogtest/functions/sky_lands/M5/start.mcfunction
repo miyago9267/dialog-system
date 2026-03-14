@@ -1,10 +1,17 @@
-
+# 設置已觸發，防止重複執行
+scoreboard players set M5_triggered sky_lands_story 1
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
 data modify storage dialogtest:story run.text set value [{t:0,type:"text",key:"story.sky_lands.M5.line1"},{t:40,type:"text",key:"story.sky_lands.M5.line2"},{t:80,type:"text",key:"story.sky_lands.M5.line3"},{t:120,type:"text",key:"story.sky_lands.M5.line4"},{t:160,type:"text",key:"story.sky_lands.M5.line5"},{t:200,type:"text",key:"story.sky_lands.M5.line6"},{t:240,type:"text",key:"story.sky_lands.M5.line7"},{t:280,type:"text",key:"story.sky_lands.M5.line8"},{t:320,type:"text",key:"story.sky_lands.M5.line9"},{t:360,type:"text",key:"story.sky_lands.M5.line10"},{t:400,type:"text",key:"story.sky_lands.M5.line11"},{t:440,type:"text",key:"story.sky_lands.M5.line12"},{t:480,type:"text",key:"story.sky_lands.M5.line13"},{t:520,type:"text",key:"story.sky_lands.M5.line14"},{t:560,type:"text",key:"story.sky_lands.M5.line15"},{t:600,type:"text",key:"story.sky_lands.M5.line16"},{t:640,type:"text",key:"story.sky_lands.M5.line17"},{t:680,type:"text",key:"story.sky_lands.M5.line18"},{t:720,type:"text",key:"story.sky_lands.M5.line19"},{t:760,type:"text",key:"story.sky_lands.M5.line20"},{t:800,type:"text",key:"story.sky_lands.M5.line21"},{t:840,type:"text",key:"story.sky_lands.M5.line22"},{t:880,type:"text",key:"story.sky_lands.M5.line23"},{t:920,type:"text",key:"story.sky_lands.M5.line24"},{t:960,type:"text",key:"story.sky_lands.M5.line25"},{t:1000,type:"text",key:"story.sky_lands.M5.line26"},{t:1040,type:"text",key:"story.sky_lands.M5.line27"},{t:1080,type:"text",key:"story.sky_lands.M5.line28"},{t:1120,type:"text",key:"story.sky_lands.M5.line29"},{t:1160,type:"text",key:"story.sky_lands.M5.line30"},{t:1200,type:"text",key:"story.sky_lands.M5.line31"},{t:1240,type:"text",key:"story.sky_lands.M5.line32"},{t:1280,type:"text",key:"story.sky_lands.M5.line33"},{t:1320,type:"text",key:"story.sky_lands.M5.line34"},{t:1360,type:"text",key:"story.sky_lands.M5.line35"},{t:1400,type:"text",key:"story.sky_lands.M5.line36"},{t:1440,type:"text",key:"story.sky_lands.M5.line37"},{t:1480,type:"text",key:"story.sky_lands.M5.line38"},{t:1520,type:"text",key:"story.sky_lands.M5.line39"},{t:1560,type:"text",key:"story.sky_lands.M5.line40"},{t:1600,type:"text",key:"story.sky_lands.M5.line41"},{t:1640,type:"text",key:"story.sky_lands.M5.line42"},{t:1680,type:"text",key:"story.sky_lands.M5.line43"},{t:1720,type:"text",key:"story.sky_lands.M5.line44"},{t:1760,type:"text",key:"story.sky_lands.M5.line45"},{t:1800,type:"text",key:"story.sky_lands.M5.line46"}]
 
-# ctrl 軌：最後一行顯示後 40 ticks 結束場景
+# [DISABLED] action 軌（動作事件，每個指向 stub mcfunction）
+# data modify storage dialogtest:story run.action set value [{t:720,type:"fn",fn:"dialogtest:sky_lands/M5/act1"},{t:800,type:"fn",fn:"dialogtest:sky_lands/M5/act2"},{t:920,type:"fn",fn:"dialogtest:sky_lands/M5/act3"}]
+# act1 (t=720, line19): 黑畫面標題文字
+# act2 (t=800, line21): 黑畫面標題文字
+# act3 (t=920, line24): 黑畫面標題文字
+
+# ctrl 軌：最後一行後 40 ticks 結束場景
 data modify storage dialogtest:story run.ctrl set value [{t:1840,type:"fn",fn:"dialogtest:operations/timeline/end"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
