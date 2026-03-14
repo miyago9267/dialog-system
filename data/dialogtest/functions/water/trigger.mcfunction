@@ -1,5 +1,5 @@
-# 檢查water1觸發條件 - 玩家抵達水源大堂 (-1749, 12, 1492) 半徑3格內
-execute unless score water1_triggered water_story matches 1 positioned -1749 12 1492 if entity @a[distance=..3] run function dialogtest:water/water1/start
+# 檢查water1觸發條件 - 玩家抵達水源大堂 (-1749, 74, 1502) 半徑3格內
+execute unless score water1_triggered water_story matches 1 positioned -1749 74 1502 if entity @a[distance=..3] run function dialogtest:water/water1/start
 
 # 檢查water2觸發條件 - 玩家抵達水靈座 (-1749, 12, 1556) 半徑3格內
 execute unless score water2_triggered water_story matches 1 positioned -1749 12 1556 if entity @a[distance=..3] run function dialogtest:water/water2/start

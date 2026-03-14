@@ -9,8 +9,8 @@ execute store result storage dialogtest:story run.scene_tick int 1 run scoreboar
 execute if score _scene_tick dialog_timer matches 1 run scoreboard players enable @a skip_scene
 execute if score _scene_tick dialog_timer matches 1 run tellraw @a ["",{"text":"       "},{"text":"[跳過劇情]","color":"gray","italic":true,"clickEvent":{"action":"run_command","value":"/trigger skip_scene set 1"},"hoverEvent":{"action":"show_text","value":{"text":"點擊跳過目前劇情"}}}]
 
-# 持續動作：fire1 村民移動
-execute if score _fire1_villager_walking dialog_timer matches 1 run function dialogtest:fire/fire1/villager_walk
+# 持續動作：fire1 村民移動（僅 fire1 場景）
+execute if score _fire1_villager_walking dialog_timer matches 1 if data storage dialogtest:story {run:{scene:"fire1"}} run function dialogtest:fire/fire1/villager_walk
 
 # 持續動作：fire2 特效（火柱旋轉粒子、中央火焰、玩家鎖定等）
 execute if data storage dialogtest:story {run:{scene:"fire_fire2"}} run function dialogtest:fire/fire2/effects_tick
@@ -24,6 +24,9 @@ execute if data storage dialogtest:story run.union[0] run function dialogtest:op
 
 data modify storage dialogtest:story _tl_args set value {track:"run.villager"}
 execute if data storage dialogtest:story run.villager[0] run function dialogtest:operations/timeline/advance with storage dialogtest:story _tl_args
+
+data modify storage dialogtest:story _tl_args set value {track:"run.action"}
+execute if data storage dialogtest:story run.action[0] run function dialogtest:operations/timeline/advance with storage dialogtest:story _tl_args
 
 data modify storage dialogtest:story _tl_args set value {track:"run.ctrl"}
 execute if data storage dialogtest:story run.ctrl[0] run function dialogtest:operations/timeline/advance with storage dialogtest:story _tl_args
