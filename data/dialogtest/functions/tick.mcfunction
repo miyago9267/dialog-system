@@ -1,3 +1,6 @@
+# 清除非播放時的殘留跳過分數（防止跳過下一段劇情）
+execute unless data storage dialogtest:story {run:{playing:1b}} run scoreboard players set @a skip_scene 0
+
 # check fire story triggers
 function dialogtest:fire/trigger
 
