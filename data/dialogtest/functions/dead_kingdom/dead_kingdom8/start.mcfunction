@@ -3,10 +3,10 @@ scoreboard players set dead_kingdom8_triggered dead_kingdom_story 1
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.dead_kingdom.dead_kingdom8.line1"},{t:65,type:"text",key:"story.dead_kingdom.dead_kingdom8.line2"},{t:105,type:"text",key:"story.dead_kingdom.dead_kingdom8.line3"},{t:145,type:"text",key:"story.dead_kingdom.dead_kingdom8.line4"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.dead_kingdom.dead_kingdom8.line1"},{t:65,type:"text",key:"story.dead_kingdom.dead_kingdom8.line2"},{t:145,type:"text",key:"story.dead_kingdom.dead_kingdom8.line3"},{t:225,type:"text",key:"story.dead_kingdom.dead_kingdom8.line4"}]
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:165,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:185,type:"fn",fn:"dialogtest:operations/timeline/end"}]
+data modify storage dialogtest:story run.ctrl set value [{t:245,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:265,type:"fn",fn:"dialogtest:operations/timeline/end"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

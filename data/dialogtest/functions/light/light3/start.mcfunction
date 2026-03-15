@@ -17,10 +17,10 @@ tp @a -1699 28 2154 facing -1687 28 2154
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 60 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.light.light3.line1"},{t:85,type:"text",key:"story.light.light3.line2"},{t:145,type:"text_player",key:"story.light.light3.line3"},{t:205,type:"text",key:"story.light.light3.line4"},{t:265,type:"text",key:"story.light.light3.line5"},{t:325,type:"text",key:"story.light.light3.line6"},{t:385,type:"text",key:"story.light.light3.line7"},{t:445,type:"text",key:"story.light.light3.line8"},{t:505,type:"text",key:"story.light.light3.line9"},{t:565,type:"text",key:"story.light.light3.line10"},{t:625,type:"text",key:"story.light.light3.line11"},{t:685,type:"text",key:"story.light.light3.line12"},{t:745,type:"text",key:"story.light.light3.line13"},{t:805,type:"text",key:"story.light.light3.line14"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.light.light3.line1"},{t:125,type:"text",key:"story.light.light3.line2"},{t:225,type:"text_player",key:"story.light.light3.line3"},{t:325,type:"text",key:"story.light.light3.line4"},{t:425,type:"text",key:"story.light.light3.line5"},{t:525,type:"text",key:"story.light.light3.line6"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:25,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:55,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:145,type:"anim_trs",tag:"lightgod",from:"breath",to:"give"},{t:175,type:"anim_trs",tag:"lightgod",from:"give",to:"breath"},{t:325,type:"anim_trs",tag:"lightgod",from:"breath",to:"kick"},{t:355,type:"anim_trs",tag:"lightgod",from:"kick",to:"breath"},{t:445,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:475,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:625,type:"fn",fn:"dialogtest:light/light3/act5"},{t:685,type:"fn",fn:"dialogtest:light/light3/act6"}]
+data modify storage dialogtest:story run.action set value [{t:25,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:45,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:225,type:"anim_trs",tag:"lightgod",from:"breath",to:"give"},{t:255,type:"anim_trs",tag:"lightgod",from:"give",to:"breath"},{t:525,type:"anim_trs",tag:"lightgod",from:"breath",to:"kick"},{t:555,type:"anim_trs",tag:"lightgod",from:"kick",to:"breath"}]
 # act1 (t=0): 光神點頭
 # act2 (t=120): 光神抬手
 # act3 (t=300): 光神撥開，開啟BOSS戰
@@ -29,7 +29,7 @@ data modify storage dialogtest:story run.action set value [{t:25,type:"anim_trs"
 # act6 (t=660): 退回至主角視角
 
 # ctrl 軌：最後一行後 60 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:845,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:865,type:"fn",fn:"dialogtest:light/light3/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:565,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:625,type:"fn",fn:"dialogtest:light/light3/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

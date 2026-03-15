@@ -18,10 +18,10 @@ data modify entity @e[name="尤尼恩",limit=1] ArmorItems insert 3 value {id:"m
 # ── 時間軸資料 ──────────────────────────────────────────────
 
 # text 軌：對話序列（line3~7），BOSS 出現後開始
-data modify storage dialogtest:story run.text set value [{t:375,type:"text",key:"story.fire.fire2.line3"},{t:455,type:"text",key:"story.fire.fire2.line4"},{t:535,type:"text_player",key:"story.fire.fire2.line5"},{t:615,type:"text",key:"story.fire.fire2.line6"},{t:695,type:"text",key:"story.fire.fire2.line7"}]
+data modify storage dialogtest:story run.text set value [{t:575,type:"text",key:"story.fire.fire2.line3"},{t:735,type:"text",key:"story.fire.fire2.line4"},{t:855,type:"text_player",key:"story.fire.fire2.line5"},{t:975,type:"text",key:"story.fire.fire2.line6"},{t:1135,type:"text",key:"story.fire.fire2.line7"}]
 
 # ctrl 軌：t=290 召喚火靈神，t=730 清理場景
-data modify storage dialogtest:story run.ctrl set value [{t:315,type:"fn",fn:"dialogtest:fire/fire2/summon_firegod"},{t:735,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:755,type:"fn",fn:"dialogtest:fire/fire2/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:475,type:"fn",fn:"dialogtest:fire/fire2/summon_firegod"},{t:1175,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:1235,type:"fn",fn:"dialogtest:fire/fire2/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

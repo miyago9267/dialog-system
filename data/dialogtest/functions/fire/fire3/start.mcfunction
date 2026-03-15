@@ -21,16 +21,16 @@ tp @a -2396 18 1727 facing -2386 18 1727
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.fire.fire3.line1"},{t:65,type:"text",key:"story.fire.fire3.line2"},{t:105,type:"text",key:"story.fire.fire3.line3"},{t:145,type:"text",key:"story.fire.fire3.line4"},{t:185,type:"text",key:"story.fire.fire3.line5"},{t:225,type:"text",key:"story.fire.fire3.line6"},{t:265,type:"text",key:"story.fire.fire3.line7"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.fire.fire3.line1"},{t:65,type:"text",key:"story.fire.fire3.line2"},{t:145,type:"text",key:"story.fire.fire3.line3"},{t:225,type:"text",key:"story.fire.fire3.line4"},{t:265,type:"text",key:"story.fire.fire3.line5"},{t:345,type:"text",key:"story.fire.fire3.line6"},{t:425,type:"text",key:"story.fire.fire3.line7"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:105,type:"fn",fn:"dialogtest:fire/fire3/act1"},{t:145,type:"anim_trs",tag:"migale",from:"breath",to:"kick"},{t:175,type:"anim_trs",tag:"migale",from:"kick",to:"breath"},{t:185,type:"fn",fn:"dialogtest:fire/fire3/act3"}]
+data modify storage dialogtest:story run.action set value [{t:145,type:"fn",fn:"dialogtest:fire/fire3/act1"},{t:225,type:"anim_trs",tag:"migale",from:"breath",to:"kick"},{t:255,type:"anim_trs",tag:"migale",from:"kick",to:"breath"},{t:265,type:"fn",fn:"dialogtest:fire/fire3/act3"}]
 # act1 (t=80): 米迦爾邊說邊從後方走來並看向火神再說下一句
 # act2 (t=120): 米迦爾撥開
 # act3 (t=160): 火神播放火焰粒子後消失
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:285,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:305,type:"fn",fn:"dialogtest:fire/fire3/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:445,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:465,type:"fn",fn:"dialogtest:fire/fire3/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

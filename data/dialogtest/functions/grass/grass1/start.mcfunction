@@ -17,16 +17,16 @@ tp @a -1405 6 1869 facing -1392 6 1868
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 60 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.grass.grass1.line1"},{t:85,type:"text",key:"story.grass.grass1.line2"},{t:145,type:"text",key:"story.grass.grass1.line3"},{t:205,type:"text_player",key:"story.grass.grass1.line4"},{t:265,type:"text",key:"story.grass.grass1.line5"},{t:325,type:"text_player",key:"story.grass.grass1.line6"},{t:385,type:"text",key:"story.grass.grass1.line7"},{t:445,type:"text",key:"story.grass.grass1.line8"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.grass.grass1.line1"},{t:125,type:"text",key:"story.grass.grass1.line2"},{t:225,type:"text",key:"story.grass.grass1.line3"},{t:325,type:"text_player",key:"story.grass.grass1.line4"},{t:425,type:"text",key:"story.grass.grass1.line5"},{t:525,type:"text_player",key:"story.grass.grass1.line6"},{t:625,type:"text",key:"story.grass.grass1.line7"},{t:725,type:"text",key:"story.grass.grass1.line8"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:145,type:"anim_trs",tag:"woodgod",from:"breath",to:"nod"},{t:175,type:"anim_trs",tag:"woodgod",from:"nod",to:"breath"},{t:265,type:"anim_trs",tag:"woodgod",from:"breath",to:"nod"},{t:265,type:"fn",fn:"dialogtest:grass/grass1/act2"},{t:295,type:"anim_trs",tag:"woodgod",from:"nod",to:"breath"},{t:385,type:"fn",fn:"dialogtest:grass/grass1/act3"}]
+data modify storage dialogtest:story run.action set value [{t:225,type:"anim_trs",tag:"woodgod",from:"breath",to:"nod"},{t:245,type:"anim_trs",tag:"woodgod",from:"nod",to:"breath"},{t:425,type:"anim_trs",tag:"woodgod",from:"breath",to:"nod"},{t:425,type:"fn",fn:"dialogtest:grass/grass1/act2"},{t:445,type:"anim_trs",tag:"woodgod",from:"nod",to:"breath"},{t:625,type:"fn",fn:"dialogtest:grass/grass1/act3"}]
 # act1 (t=120): 木神看著花點頭
 # act2 (t=240): 木神快速看向主角點頭
 # act3 (t=360): 化成苞子花粒子消失
 
 # ctrl 軌：最後一行後 60 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:485,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:505,type:"fn",fn:"dialogtest:grass/grass1/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:765,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:825,type:"fn",fn:"dialogtest:grass/grass1/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

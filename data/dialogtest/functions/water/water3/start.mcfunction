@@ -17,17 +17,17 @@ tp @a -1750 12 1575 facing -1749 14 1592
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 60 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.water.water3.line1"},{t:85,type:"text",key:"story.water.water3.line2"},{t:145,type:"text",key:"story.water.water3.line3"},{t:205,type:"text",key:"story.water.water3.line4"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.water.water3.line1"},{t:125,type:"text",key:"story.water.water3.line2"},{t:225,type:"text",key:"story.water.water3.line3"},{t:325,type:"text",key:"story.water.water3.line4"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:25,type:"anim_trs",tag:"watergod",from:"breath",to:"give"},{t:55,type:"anim_trs",tag:"watergod",from:"give",to:"breath"},{t:85,type:"anim_trs",tag:"watergod",from:"breath",to:"nod"},{t:115,type:"anim_trs",tag:"watergod",from:"nod",to:"breath"},{t:145,type:"anim_trs",tag:"watergod",from:"breath",to:"kick"},{t:175,type:"anim_trs",tag:"watergod",from:"kick",to:"breath"},{t:205,type:"fn",fn:"dialogtest:water/water3/act4"}]
+data modify storage dialogtest:story run.action set value [{t:25,type:"anim_trs",tag:"watergod",from:"breath",to:"give"},{t:55,type:"anim_trs",tag:"watergod",from:"give",to:"breath"},{t:125,type:"anim_trs",tag:"watergod",from:"breath",to:"nod"},{t:145,type:"anim_trs",tag:"watergod",from:"nod",to:"breath"},{t:225,type:"anim_trs",tag:"watergod",from:"breath",to:"kick"},{t:255,type:"anim_trs",tag:"watergod",from:"kick",to:"breath"},{t:325,type:"fn",fn:"dialogtest:water/water3/act4"}]
 # act1 (t=0): 奈迪拉提雅舉手
 # act2 (t=60): 奈迪拉提雅點頭
 # act3 (t=120): 奈迪拉提雅撥開
 # act4 (t=180): 奈迪拉提雅變成水滴與水波直線移動到場地中央並開啟BOSS戰
 
 # ctrl 軌：最後一行後 60 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:245,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:265,type:"fn",fn:"dialogtest:operations/timeline/end"}]
+data modify storage dialogtest:story run.ctrl set value [{t:365,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:425,type:"fn",fn:"dialogtest:water/water3/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

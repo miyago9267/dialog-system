@@ -2,10 +2,10 @@
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.sunset_realm.sunset_realm12.line1"},{t:65,type:"text",key:"story.sunset_realm.sunset_realm12.line2"},{t:105,type:"text",key:"story.sunset_realm.sunset_realm12.line3"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.sunset_realm.sunset_realm12.line1"},{t:65,type:"text",key:"story.sunset_realm.sunset_realm12.line2"},{t:145,type:"text",key:"story.sunset_realm.sunset_realm12.line3"}]
 
 # ctrl 軌：最後一行顯示後 40 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:125,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:145,type:"fn",fn:"dialogtest:operations/timeline/end"}]
+data modify storage dialogtest:story run.ctrl set value [{t:165,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:225,type:"fn",fn:"dialogtest:operations/timeline/end"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

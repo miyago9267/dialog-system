@@ -19,17 +19,17 @@ tp @a -1749 12 1514 facing -1749 12 1520
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 60 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.water.water2.line1"},{t:85,type:"text",key:"story.water.water2.line2"},{t:145,type:"text",key:"story.water.water2.line3"},{t:205,type:"text",key:"story.water.water2.line4"},{t:265,type:"text",key:"story.water.water2.line5"},{t:325,type:"text",key:"story.water.water2.line6"},{t:385,type:"text",key:"story.water.water2.line7"},{t:445,type:"text",key:"story.water.water2.line8"},{t:505,type:"text",key:"story.water.water2.line9"},{t:565,type:"text",key:"story.water.water2.line10"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.water.water2.line1"},{t:125,type:"text",key:"story.water.water2.line2"},{t:225,type:"text",key:"story.water.water2.line3"},{t:325,type:"text",key:"story.water.water2.line4"},{t:425,type:"text",key:"story.water.water2.line5"},{t:525,type:"text",key:"story.water.water2.line6"},{t:625,type:"text",key:"story.water.water2.line7"},{t:725,type:"text",key:"story.water.water2.line8"},{t:825,type:"text",key:"story.water.water2.line9"},{t:925,type:"text",key:"story.water.water2.line10"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:85,type:"anim_trs",tag:"union",from:"breath",to:"sidehead"},{t:115,type:"anim_trs",tag:"union",from:"sidehead",to:"breath"},{t:145,type:"anim_trs",tag:"watergod",from:"breath",to:"give"},{t:145,type:"fn",fn:"dialogtest:water/water2/act2"},{t:175,type:"anim_trs",tag:"watergod",from:"give",to:"breath"},{t:265,type:"fn",fn:"dialogtest:water/water2/act3"},{t:505,type:"anim_trs",tag:"watergod",from:"breath",to:"nod"},{t:535,type:"anim_trs",tag:"watergod",from:"nod",to:"breath"}]
+data modify storage dialogtest:story run.action set value [{t:125,type:"anim_trs",tag:"union",from:"breath",to:"sidehead"},{t:155,type:"anim_trs",tag:"union",from:"sidehead",to:"breath"},{t:225,type:"anim_trs",tag:"watergod",from:"breath",to:"give"},{t:225,type:"fn",fn:"dialogtest:water/water2/act2"},{t:255,type:"anim_trs",tag:"watergod",from:"give",to:"breath"},{t:425,type:"fn",fn:"dialogtest:water/water2/act3"},{t:825,type:"anim_trs",tag:"watergod",from:"breath",to:"nod"},{t:845,type:"anim_trs",tag:"watergod",from:"nod",to:"breath"}]
 # act1 (t=60): 尤尼恩歪頭
 # act2 (t=120): 奈迪拉提雅抬手看向尤尼恩
 # act3 (t=240): 先依序開啟四道試煉場的門，再播放下一句
 # act4 (t=480): 奈迪拉提雅點頭
 
 # ctrl 軌：最後一行(line10, t=360)後 60 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:605,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:625,type:"fn",fn:"dialogtest:water/water2/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:965,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:1025,type:"fn",fn:"dialogtest:water/water2/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

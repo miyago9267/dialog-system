@@ -17,16 +17,16 @@ tp @a -1835 32 2154 facing -1822 32 2154
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 60 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.light.light2.line1"},{t:85,type:"text",key:"story.light.light2.line2"},{t:145,type:"text",key:"story.light.light2.line3"},{t:205,type:"text",key:"story.light.light2.line4"},{t:265,type:"text",key:"story.light.light2.line5"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.light.light2.line1"},{t:125,type:"text",key:"story.light.light2.line2"},{t:225,type:"text",key:"story.light.light2.line3"},{t:325,type:"text",key:"story.light.light2.line4"},{t:425,type:"text",key:"story.light.light2.line5"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:25,type:"fn",fn:"dialogtest:light/light2/act1"},{t:145,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:175,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:265,type:"anim_trs",tag:"lightgod",from:"breath",to:"wavehand"},{t:295,type:"anim_trs",tag:"lightgod",from:"wavehand",to:"breath"}]
+data modify storage dialogtest:story run.action set value [{t:25,type:"fn",fn:"dialogtest:light/light2/act1"},{t:225,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:245,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:425,type:"anim_trs",tag:"lightgod",from:"breath",to:"wavehand"},{t:455,type:"anim_trs",tag:"lightgod",from:"wavehand",to:"breath"}]
 # act1 (t=0): 黑畫面後特寫光神再後退至玩家視角
 # act2 (t=120): 光神點頭
 # act3 (t=240): 光神向主角揮手
 
 # ctrl 軌：最後一行後 60 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:305,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:325,type:"fn",fn:"dialogtest:operations/timeline/end"}]
+data modify storage dialogtest:story run.ctrl set value [{t:465,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:525,type:"fn",fn:"dialogtest:light/light2/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0
