@@ -1,6 +1,5 @@
-# 檢查fire1觸發條件 - 玩家在座標(-2031, 14, 1760)的半徑3格內
-# 只有在舊版plot_test的fire1觸發點不存在時才觸發新版
-execute unless score fire1_triggered fire_story matches 1 unless entity @e[tag=fire1,type=armor_stand] positioned -2031 14 1760 if entity @a[distance=..3] run function dialogtest:fire/fire1/start
+# 檢查fire1觸發條件 - 玩家在座標(-2031, 13, 1759)的半徑3格內
+execute unless score fire1_triggered fire_story matches 1 positioned -2031 13 1759 if entity @a[distance=..3] run function dialogtest:fire/fire1/start
 
 # 檢查fire2觸發條件 - 玩家在座標(-2399, 18, 1727)的半徑3格內
 execute unless score fire2_triggered fire_story matches 1 positioned -2399 18 1727 if entity @a[distance=..3] run function dialogtest:fire/fire2/start

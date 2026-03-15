@@ -2,13 +2,10 @@
 scoreboard players set fire3_triggered fire_story 1
 
 # ── 場景設置（站位） ──────────────────────────────────────────
-effect give @a slowness 999999 255 true
-effect give @a jump_boost 999999 128 true
-effect give @a blindness 1 0 true
-
+gamemode spectator @a
 execute positioned -2386 18 1727 facing -2396 18 1727 run function animated_java:character/summon {args: {variant: 'firegod'}}
 execute positioned -2386 18 1727 run tag @e[sort=nearest,limit=1,tag=aj.character.root] add firegod
-summon text_display -2386 20 1727 {text:'{"text":"阿多賽忒喀","color":"white","bold":true}',billboard:"center",Tags:["fire3_entity"]}
+summon text_display -2386 20 1727 {text:'{"text":"阿多賽忒喀","color":"red","bold":true}',billboard:"center",Tags:["fire3_entity"]}
 
 execute positioned -2393 18 1730 facing -2386 18 1727 run function animated_java:character/summon {args: {variant: 'union'}}
 execute positioned -2393 18 1730 run tag @e[sort=nearest,limit=1,tag=aj.character.root] add union
@@ -18,20 +15,22 @@ execute positioned -2397 18 1724 facing -2391 18 1724 run function animated_java
 execute positioned -2397 18 1724 run tag @e[sort=nearest,limit=1,tag=aj.character.root] add migale
 summon text_display -2397 20 1724 {text:'{"text":"米迦爾","color":"white","bold":true}',billboard:"center",Tags:["fire3_entity"]}
 
+summon marker -2396 18 1727 {Tags:["scene_camera"]}
+execute as @e[tag=scene_camera] at @s run tp @s ~ ~ ~ facing -2386 18 1727
 tp @a -2396 18 1727 facing -2386 18 1727
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:0,type:"text",key:"story.fire.fire3.line1"},{t:40,type:"text",key:"story.fire.fire3.line2"},{t:80,type:"text",key:"story.fire.fire3.line3"},{t:120,type:"text",key:"story.fire.fire3.line4"},{t:160,type:"text",key:"story.fire.fire3.line5"},{t:200,type:"text",key:"story.fire.fire3.line6"},{t:240,type:"text",key:"story.fire.fire3.line7"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.fire.fire3.line1"},{t:65,type:"text",key:"story.fire.fire3.line2"},{t:105,type:"text",key:"story.fire.fire3.line3"},{t:145,type:"text",key:"story.fire.fire3.line4"},{t:185,type:"text",key:"story.fire.fire3.line5"},{t:225,type:"text",key:"story.fire.fire3.line6"},{t:265,type:"text",key:"story.fire.fire3.line7"}]
 
 # action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:80,type:"fn",fn:"dialogtest:fire/fire3/act1"},{t:120,type:"anim_trs",tag:"migale",from:"breath",to:"kick"},{t:150,type:"anim_trs",tag:"migale",from:"kick",to:"breath"},{t:160,type:"fn",fn:"dialogtest:fire/fire3/act3"}]
+data modify storage dialogtest:story run.action set value [{t:105,type:"fn",fn:"dialogtest:fire/fire3/act1"},{t:145,type:"anim_trs",tag:"migale",from:"breath",to:"kick"},{t:175,type:"anim_trs",tag:"migale",from:"kick",to:"breath"},{t:185,type:"fn",fn:"dialogtest:fire/fire3/act3"}]
 # act1 (t=80): 米迦爾邊說邊從後方走來並看向火神再說下一句
 # act2 (t=120): 米迦爾撥開
 # act3 (t=160): 火神播放火焰粒子後消失
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:280,type:"fn",fn:"dialogtest:fire/fire3/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:285,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:305,type:"fn",fn:"dialogtest:fire/fire3/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0

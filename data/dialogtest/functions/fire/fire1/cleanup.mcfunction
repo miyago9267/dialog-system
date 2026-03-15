@@ -1,8 +1,8 @@
 # fire1 場景清理（ctrl 軌 t=600 觸發）
 
 # 解除玩家鎖定
-effect clear @a slowness
-effect clear @a jump_boost
+gamemode adventure @a
+kill @e[tag=scene_camera]
 
 # 停止村民移動
 scoreboard players set _fire1_villager_walking dialog_timer 0

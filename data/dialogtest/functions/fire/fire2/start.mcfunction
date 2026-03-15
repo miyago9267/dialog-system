@@ -1,11 +1,8 @@
 # 設置已觸發，防止重複執行
 scoreboard players set fire2_triggered fire_story 1
 
-# 鎖定玩家移動和視角
-effect give @a slowness 999999 255 true
-effect give @a jump_boost 999999 128 true
-effect give @a blindness 1 0 true
-
+# 切換觀察者模式（鎖位置由 timeline/tick 每 tick tp 處理）
+gamemode spectator @a
 # 傳送玩家到觀看位置（面向場地中央）
 tp @a -2400 18 1724 -70 0
 
@@ -21,10 +18,10 @@ data modify entity @e[name="尤尼恩",limit=1] ArmorItems insert 3 value {id:"m
 # ── 時間軸資料 ──────────────────────────────────────────────
 
 # text 軌：對話序列（line3~7），BOSS 出現後開始
-data modify storage dialogtest:story run.text set value [{t:350,type:"text",key:"story.fire.fire2.line3"},{t:430,type:"text",key:"story.fire.fire2.line4"},{t:510,type:"text_player",key:"story.fire.fire2.line5"},{t:590,type:"text",key:"story.fire.fire2.line6"},{t:670,type:"text",key:"story.fire.fire2.line7"}]
+data modify storage dialogtest:story run.text set value [{t:375,type:"text",key:"story.fire.fire2.line3"},{t:455,type:"text",key:"story.fire.fire2.line4"},{t:535,type:"text_player",key:"story.fire.fire2.line5"},{t:615,type:"text",key:"story.fire.fire2.line6"},{t:695,type:"text",key:"story.fire.fire2.line7"}]
 
 # ctrl 軌：t=290 召喚火靈神，t=730 清理場景
-data modify storage dialogtest:story run.ctrl set value [{t:290,type:"fn",fn:"dialogtest:fire/fire2/summon_firegod"},{t:730,type:"fn",fn:"dialogtest:fire/fire2/cleanup"}]
+data modify storage dialogtest:story run.ctrl set value [{t:315,type:"fn",fn:"dialogtest:fire/fire2/summon_firegod"},{t:735,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:755,type:"fn",fn:"dialogtest:fire/fire2/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0
