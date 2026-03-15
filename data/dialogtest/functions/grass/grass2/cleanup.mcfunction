@@ -1,8 +1,8 @@
 # grass2 場景清理（ctrl 軌觸發）
 
 # 解除玩家鎖定
-effect clear @a slowness
-effect clear @a jump_boost
+gamemode adventure @a
+kill @e[tag=scene_camera]
 
 # 移除 AJ 角色
 execute as @e[tag=union] run function animated_java:character/remove/this

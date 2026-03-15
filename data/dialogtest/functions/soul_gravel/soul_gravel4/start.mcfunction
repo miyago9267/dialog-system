@@ -3,10 +3,10 @@ scoreboard players set soul_gravel4_triggered soul_gravel_story 1
 
 # ── 時間軸資料 ──────────────────────────────────────────────
 # text 軌（每行 40 ticks，*_player 表示帶玩家名稱）
-data modify storage dialogtest:story run.text set value [{t:0,type:"text_player",key:"story.soul_gravel.soul_gravel4.line1"},{t:40,type:"text",key:"story.soul_gravel.soul_gravel4.line2"},{t:80,type:"text",key:"story.soul_gravel.soul_gravel4.line3"},{t:120,type:"text",key:"story.soul_gravel.soul_gravel4.line4"},{t:160,type:"text",key:"story.soul_gravel.soul_gravel4.line5"},{t:200,type:"text",key:"story.soul_gravel.soul_gravel4.line6"},{t:240,type:"text",key:"story.soul_gravel.soul_gravel4.line7"},{t:280,type:"text",key:"story.soul_gravel.soul_gravel4.line8"},{t:320,type:"text",key:"story.soul_gravel.soul_gravel4.line9"},{t:360,type:"text",key:"story.soul_gravel.soul_gravel4.line10"},{t:400,type:"text",key:"story.soul_gravel.soul_gravel4.line11"},{t:440,type:"text",key:"story.soul_gravel.soul_gravel4.line12"},{t:480,type:"text",key:"story.soul_gravel.soul_gravel4.line13"},{t:520,type:"text",key:"story.soul_gravel.soul_gravel4.line14"}]
+data modify storage dialogtest:story run.text set value [{t:25,type:"text_player",key:"story.soul_gravel.soul_gravel4.line1"},{t:65,type:"text",key:"story.soul_gravel.soul_gravel4.line2"},{t:105,type:"text",key:"story.soul_gravel.soul_gravel4.line3"},{t:145,type:"text",key:"story.soul_gravel.soul_gravel4.line4"},{t:185,type:"text",key:"story.soul_gravel.soul_gravel4.line5"},{t:225,type:"text",key:"story.soul_gravel.soul_gravel4.line6"},{t:265,type:"text",key:"story.soul_gravel.soul_gravel4.line7"},{t:305,type:"text",key:"story.soul_gravel.soul_gravel4.line8"},{t:345,type:"text",key:"story.soul_gravel.soul_gravel4.line9"},{t:385,type:"text",key:"story.soul_gravel.soul_gravel4.line10"},{t:425,type:"text",key:"story.soul_gravel.soul_gravel4.line11"},{t:465,type:"text",key:"story.soul_gravel.soul_gravel4.line12"},{t:505,type:"text",key:"story.soul_gravel.soul_gravel4.line13"},{t:545,type:"text",key:"story.soul_gravel.soul_gravel4.line14"}]
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
-data modify storage dialogtest:story run.ctrl set value [{t:560,type:"fn",fn:"dialogtest:operations/timeline/end"}]
+data modify storage dialogtest:story run.ctrl set value [{t:565,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:585,type:"fn",fn:"dialogtest:operations/timeline/end"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────
 scoreboard players set _scene_tick dialog_timer 0
