@@ -9,3 +9,4 @@ npc/
 __pycache__/
 tools/__pycache__/
 tools/output.json
+*.bak
