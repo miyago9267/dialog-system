@@ -13,3 +13,6 @@ execute unless score water3_triggered water_story matches 1 if score water2_trig
 execute if score water4_trigger water_story matches 1.. unless score water4_triggered water_story matches 1 run function dialogtest:water/water4/start
 execute if score water4_trigger water_story matches 1.. unless score water4_triggered water_story matches 1 run scoreboard players set water4_triggered water_story 1
 execute if score water4_trigger water_story matches 1.. unless score water4_triggered water_story matches 1 run scoreboard players set water4_trigger water_story 0
+
+# 檢查water_gate觸發條件 - 完成四道試煉後玩家抵達 (-1749, 20, 1541) 半徑3格內
+execute unless score water_gate_triggered water_story matches 1 if score water4_triggered water_story matches 1 positioned -1749 20 1541 if entity @a[distance=..3] run function dialogtest:water/water_gate/start

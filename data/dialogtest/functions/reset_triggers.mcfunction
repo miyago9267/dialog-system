@@ -6,6 +6,7 @@ scoreboard players set water1_triggered water_story 0
 scoreboard players set water2_triggered water_story 0
 scoreboard players set water3_triggered water_story 0
 scoreboard players set water4_triggered water_story 0
+scoreboard players set water_gate_triggered water_story 0
 scoreboard players set grass1_triggered grass_story 0
 scoreboard players set grass2_triggered grass_story 0
 scoreboard players set grass3_triggered grass_story 0

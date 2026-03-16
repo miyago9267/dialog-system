@@ -25,6 +25,9 @@ execute if score _fire1_villager_walking dialog_timer matches 1 if data storage 
 # 持續動作：fire2 特效（火柱旋轉粒子、中央火焰、玩家鎖定等）
 execute if data storage dialogtest:story {run:{scene:"fire_fire2"}} run function dialogtest:fire/fire2/effects_tick
 
+# 持續動作：water_gate 大門開啟粒子
+execute if score _water_gate_fx dialog_timer matches 1 if data storage dialogtest:story {run:{scene:"water_water_gate"}} run function dialogtest:water/water_gate/effects_tick
+
 # 推進各軌道（以 _tl_args 傳入軌道路徑，各自獨立推進）
 data modify storage dialogtest:story _tl_args set value {track:"run.text"}
 execute if data storage dialogtest:story run.text[0] run function dialogtest:operations/timeline/advance with storage dialogtest:story _tl_args
