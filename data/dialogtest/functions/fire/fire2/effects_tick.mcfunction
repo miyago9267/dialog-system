@@ -58,5 +58,4 @@ execute if score _scene_tick dialog_timer matches 295..315 run particle minecraf
 # ── 火靈神轉身（t=430~449，每 tick 旋轉 9°） ──────────────────
 execute if score _scene_tick dialog_timer matches 430..449 run execute as @e[tag=firegod] at @s run tp @s ~ ~ ~ ~9 ~
 
-# ── 玩家位置鎖定（特效期間 + 火靈神出場） ─────────────────────
-execute if score _scene_tick dialog_timer matches 1..350 run tp @a -2400 18 1724
+# 玩家位置鎖定由 scene_camera marker 處理（timeline/tick 每 tick tp）
