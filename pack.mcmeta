@@ -1,6 +1,10 @@
 {
     "pack": {
-        "pack_format": 23,
+        "pack_format": 61,
+        "supported_formats": {
+            "min_inclusive": 23,
+            "max_inclusive": 61
+        },
         "description": "劇情字幕跑動測試用資料包"
     }
 }

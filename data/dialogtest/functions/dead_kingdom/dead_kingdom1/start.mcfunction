@@ -8,10 +8,10 @@ data modify storage dialogtest:story run.text set value [{t:25,type:"text_player
 # [DISABLED] action 軌（動作事件，每個指向 stub mcfunction）
 # data modify storage dialogtest:story run.action set value [{t:25,type:"fn",fn:"dialogtest:dead_kingdom/dead_kingdom1/act1"}]
 # act1 (t=0, line1): (中庭鎮守四石像，轟獸坐南朝北，巫女坐東朝南，斧者坐北朝西，地魂坐西朝東)
-轟獸-苦力怕:主臥室
-巫女-女巫:夾層密室
-斧者-衛道士:閣樓
-地魂-骷髏:會議廳
+# 轟獸-苦力怕:主臥室
+# 巫女-女巫:夾層密室
+# 斧者-衛道士:閣樓
+# 地魂-骷髏:會議廳
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
 data modify storage dialogtest:story run.ctrl set value [{t:525,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:545,type:"fn",fn:"dialogtest:operations/timeline/end"}]

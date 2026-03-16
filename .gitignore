@@ -10,3 +10,6 @@ __pycache__/
 tools/__pycache__/
 tools/output.json
 *.bak
+# AI 本地追蹤
+docs/ai/
+.claude/

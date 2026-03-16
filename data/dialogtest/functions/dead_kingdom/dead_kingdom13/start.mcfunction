@@ -8,7 +8,7 @@ data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"
 # [DISABLED] action 軌（動作事件，每個指向 stub mcfunction）
 # data modify storage dialogtest:story run.action set value [{t:3865,type:"fn",fn:"dialogtest:dead_kingdom/dead_kingdom13/act1"}]
 # act1 (t=3840, line97): 神權論法新階級論:
-原生輪、初生輪、迴生輪、續生輪
+# 原生輪、初生輪、迴生輪、續生輪
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
 data modify storage dialogtest:story run.ctrl set value [{t:5805,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:5825,type:"fn",fn:"dialogtest:operations/timeline/end"}]

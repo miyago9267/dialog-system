@@ -8,14 +8,14 @@ data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"
 # [DISABLED] action 軌（動作事件，每個指向 stub mcfunction）
 # data modify storage dialogtest:story run.action set value [{t:25,type:"fn",fn:"dialogtest:sky_palace/4/act1"}]
 # act1 (t=0, line1): 1.點頭
-2.搖頭
-3.走路
-4.撥開
-5.原地跳躍
-6.向前跳
-7.伸手
-8.揮手
-9.歪頭
+# 2.搖頭
+# 3.走路
+# 4.撥開
+# 5.原地跳躍
+# 6.向前跳
+# 7.伸手
+# 8.揮手
+# 9.歪頭
 10.
 
 # ctrl 軌：最後一行後 40 ticks 結束場景
