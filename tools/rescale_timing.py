@@ -1,17 +1,17 @@
 """
-將所有場景的時間軸間隔從 60 ticks 改為 100 ticks。
+將所有場景的時間軸間隔從 OLD_INTERVAL 改為 NEW_INTERVAL ticks。
 
-公式：new_t = 25 + ((t - 25) // 60) * 100 + ((t - 25) % 60)
+公式：new_t = 25 + ((t - 25) // OLD) * NEW + ((t - 25) % OLD)
 
-即：保持行內偏移不變，只拉大行與行之間的距離。
+即：保持行內偏移不變，只拉大/縮小行與行之間的距離。
 """
 
 import re, sys, io, pathlib
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
-OLD_INTERVAL = 60
-NEW_INTERVAL = 100
+OLD_INTERVAL = 100
+NEW_INTERVAL = 80
 BASE = 25  # 第一行起始 tick
 
 FUNCS = pathlib.Path(r"c:\Users\miyago\AppData\Roaming\PrismLauncher\instances\endofmemories\minecraft\saves\end_of_memories_map\datapacks\dialogtest\data\dialogtest\functions")
