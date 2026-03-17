@@ -32,7 +32,7 @@ data modify storage dialogtest:story run.text set value [{t:25,type:"text_player
 data modify storage dialogtest:story run.union set value [{t:25,type:"anim_play",tag:"union",anim:"breath"}]
 
 # action 軌：t=205 特寫賽克（line4），t=265 回原位（line5）
-data modify storage dialogtest:story run.action set value [{t:265,type:"fn",fn:"dialogtest:fire/fire1/closeup_seck"},{t:345,type:"fn",fn:"dialogtest:fire/fire1/closeup_reset"},{t:425,type:"fn",fn:"dialogtest:fire/fire1/union_face_player"},{t:505,type:"fn",fn:"dialogtest:fire/fire1/seck_nod_down"},{t:515,type:"fn",fn:"dialogtest:fire/fire1/seck_nod_up"}]
+data modify storage dialogtest:story run.action set value [{t:25,type:"fn",fn:"dialogtest:fire/fire1/seck_greet"},{t:265,type:"fn",fn:"dialogtest:fire/fire1/closeup_seck"},{t:345,type:"fn",fn:"dialogtest:fire/fire1/closeup_reset"},{t:425,type:"fn",fn:"dialogtest:fire/fire1/union_face_player"},{t:505,type:"fn",fn:"dialogtest:fire/fire1/seck_nod_down"},{t:515,type:"fn",fn:"dialogtest:fire/fire1/seck_nod_up"}]
 
 # villager 軌：+25，t=565 開始走（line10 同步），t=685 換目標（line12 同步）
 data modify storage dialogtest:story run.villager set value [{t:715,type:"fn",fn:"dialogtest:fire/fire1/seck_face_player"},{t:745,type:"fn",fn:"dialogtest:fire/fire1/villager_walk_to_dest1"},{t:905,type:"fn",fn:"dialogtest:fire/fire1/villager_walk_to_dest2"}]
