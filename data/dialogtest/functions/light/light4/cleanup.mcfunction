@@ -1,4 +1,4 @@
-# light2 場景清理（ctrl 軌觸發）
+# light4 場景清理（ctrl 軌觸發）
 
 # 緩降保護
 effect give @a slow_falling 5 0 true
@@ -12,7 +12,7 @@ execute as @e[tag=lightgod] run function animated_java:character/remove/this
 execute as @e[tag=union] run function animated_java:character/remove/this
 
 # 清除場景實體
-kill @e[tag=light2_entity]
+kill @e[tag=light4_entity]
 
 # 結束時間軸
 data modify storage dialogtest:story run.playing set value 0b

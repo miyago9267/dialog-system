@@ -13,21 +13,25 @@ execute positioned -1828 32 2148 run tag @e[sort=nearest,limit=1,tag=aj.characte
 execute as @e[tag=union] at @s run tp @s ~ ~ ~ facing -1822 32 2154
 summon text_display -1828 34 2148 {text:'{"text":"尤尼恩","color":"white","bold":true}',billboard:"center",Tags:["light2_entity"]}
 
-summon marker -1835 32 2154 {Rotation:[-90.0f,-0.0f],Tags:["scene_camera"]}
+# 開場特寫：鏡頭從光神近景開始
+summon marker -1826 32 2154 {Tags:["scene_camera"]}
 execute as @e[tag=scene_camera] at @s run tp @s ~ ~ ~ facing -1822 32 2154
-tp @a -1835 32 2154 facing -1822 32 2154
+tp @a -1826 32 2154 facing -1822 32 2154
+
+# 淡入（從黑畫面進場）
+schedule function dialogtest:operations/transition/fade_from_black 1t
 
 # ── 時間軸資料 ──────────────────────────────────────────────
-# text 軌（每行 60 ticks，*_player 表示帶玩家名稱）
+# text 軌（5 行，80t 間隔）
 data modify storage dialogtest:story run.text set value [{t:25,type:"text",key:"story.light.light2.line1"},{t:105,type:"text",key:"story.light.light2.line2"},{t:185,type:"text",key:"story.light.light2.line3"},{t:265,type:"text",key:"story.light.light2.line4"},{t:345,type:"text",key:"story.light.light2.line5"}]
 
-# action 軌（AJ 動畫與攝影機動作）
-data modify storage dialogtest:story run.action set value [{t:25,type:"fn",fn:"dialogtest:light/light2/act1"},{t:185,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:205,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:345,type:"anim_trs",tag:"lightgod",from:"breath",to:"wavehand"},{t:380,type:"anim_trs",tag:"lightgod",from:"wavehand",to:"breath"}]
-# act1 (t=0): 黑畫面後特寫光神再後退至玩家視角
-# act2 (t=120): 光神點頭
-# act3 (t=240): 光神向主角揮手
+# action 軌
+data modify storage dialogtest:story run.action set value [{t:55,type:"fn",fn:"dialogtest:light/light2/act1"},{t:185,type:"anim_trs",tag:"lightgod",from:"breath",to:"nod"},{t:205,type:"anim_trs",tag:"lightgod",from:"nod",to:"breath"},{t:345,type:"anim_trs",tag:"lightgod",from:"breath",to:"wavehand"},{t:380,type:"anim_trs",tag:"lightgod",from:"wavehand",to:"breath"}]
+# t=55: act1 - 鏡頭從特寫後退至玩家視角
+# t=185: 光神點頭（inline anim_trs）
+# t=345: 光神揮手（inline anim_trs）
 
-# ctrl 軌：最後一行後 60 ticks 結束場景
+# ctrl 軌
 data modify storage dialogtest:story run.ctrl set value [{t:385,type:"fn",fn:"dialogtest:operations/transition/fade_to_black"},{t:425,type:"fn",fn:"dialogtest:light/light2/cleanup"}]
 
 # ── 啟動時間軸 ──────────────────────────────────────────────

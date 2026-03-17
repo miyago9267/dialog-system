@@ -1,4 +1,3 @@
-# 動作：光神撥開，開啟BOSS戰
-# 觸發時機：t=200 (line6)
-# 對應台詞：賽芬妲斯特:來吧，我準備好了，一定要使出全力!!
-# PENDING: 實作此動作
+# 光神撥開，開啟 BOSS 戰
+# 已改為 inline anim_trs（kick），BOSS 戰轉場由 cleanup 處理
+# PENDING: 需要 BOSS 戰觸發機制（召喚 BOSS / 設定 scoreboard / 等）

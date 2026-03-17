@@ -1,2 +1,3 @@
-# 主角視角轉移至-1775 166 2154 90 -5
-execute as @e[tag=scene_camera] run tp @s -1772 82 2112 facing -1775 166 2154
+# 視角轉移至迷樓中層（line6 第二段）
+tp @e[tag=scene_camera] -1669 141 2108 65 10
+tp @a -1669 141 2108 65 10

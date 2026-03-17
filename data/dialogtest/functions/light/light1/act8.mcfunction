@@ -1,4 +1,4 @@
-# 動作：光神抬手
-# 觸發時機：t=360 (line10)
-# 對應台詞：賽芬妲斯特:那就先這樣囉，我先去準備一下待會的「試煉內容」，回頭見。
-# PENDING: 實作此動作
+# 回到初始點看向光神（line8）
+tp @e[tag=scene_camera] -1772 82 2112 0 0
+execute as @e[tag=scene_camera] at @s run tp @s ~ ~ ~ facing -1765 82 2112
+tp @a -1772 82 2112 facing -1765 82 2112
