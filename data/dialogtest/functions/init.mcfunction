@@ -10,36 +10,37 @@ scoreboard players set _fire1_villager_walking dialog_timer 0
 # 開啟：/scoreboard players set _keep_triggers dialog_timer 1
 execute unless score _keep_triggers dialog_timer matches 0.. run scoreboard players set _keep_triggers dialog_timer 1
 
-# fire story triggers
-scoreboard objectives add fire_story dummy
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set fire1_triggered fire_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set fire2_triggered fire_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set fire3_triggered fire_story 0
-scoreboard players set fire3_trigger fire_story 0
+# 劇情進度記分板（統一）
+scoreboard objectives add story_progress dummy "Story Progress"
+scoreboard objectives setdisplay sidebar story_progress
 
-# water story triggers
-scoreboard objectives add water_story dummy
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water1_triggered water_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water2_triggered water_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water3_triggered water_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water4_triggered water_story 0
-scoreboard players set water4_trigger water_story 0
+# fire triggers
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set fire1_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set fire2_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set fire3_triggered story_progress 0
+scoreboard players set fire3_trigger story_progress 0
 
-# grass story triggers
-scoreboard objectives add grass_story dummy
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass1_triggered grass_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass2_triggered grass_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass3_triggered grass_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass4_triggered grass_story 0
-scoreboard players set grass4_trigger grass_story 0
+# water triggers
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water1_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water2_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water3_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water4_triggered story_progress 0
+scoreboard players set water4_trigger story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set water_gate_triggered story_progress 0
 
-# light story triggers
-scoreboard objectives add light_story dummy
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light1_triggered light_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light2_triggered light_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light3_triggered light_story 0
-execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light4_triggered light_story 0
-scoreboard players set light4_trigger light_story 0
+# grass triggers
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass1_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass2_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass3_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set grass4_triggered story_progress 0
+scoreboard players set grass4_trigger story_progress 0
+
+# light triggers
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light1_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light2_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light3_triggered story_progress 0
+execute unless score _keep_triggers dialog_timer matches 1 run scoreboard players set light4_triggered story_progress 0
+scoreboard players set light4_trigger story_progress 0
 
 # 跳過劇情 trigger（非 op 玩家可用）
 scoreboard objectives add skip_scene trigger

@@ -1,5 +1,5 @@
 # 設置已觸發，防止重複執行
-scoreboard players set grass3_triggered grass_story 1
+scoreboard players set grass3_triggered story_progress 1
 
 # ── 場景設置（站位） ──────────────────────────────────────────
 gamemode spectator @a

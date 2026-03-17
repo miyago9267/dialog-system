@@ -1,5 +1,5 @@
 # 設置已觸發，防止重複執行
-scoreboard players set water_gate_triggered water_story 1
+scoreboard players set water_gate_triggered story_progress 1
 
 # ── 場景設置 ──────────────────────────────────────────────
 gamemode spectator @a

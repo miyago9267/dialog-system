@@ -1,5 +1,5 @@
 # 設置已觸發，防止重複執行
-scoreboard players set fire2_triggered fire_story 1
+scoreboard players set fire2_triggered story_progress 1
 
 # 切換觀察者模式（鎖位置由 timeline/tick 每 tick tp 處理）
 gamemode spectator @a

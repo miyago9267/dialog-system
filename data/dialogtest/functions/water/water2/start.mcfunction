@@ -1,5 +1,5 @@
 # 設置已觸發，防止重複執行
-scoreboard players set water2_triggered water_story 1
+scoreboard players set water2_triggered story_progress 1
 
 # ── 場景設置（站位） ──────────────────────────────────────────
 # 奈迪拉提雅 -1749 12 1520 面向主角
