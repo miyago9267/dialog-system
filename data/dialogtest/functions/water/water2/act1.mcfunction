@@ -1,4 +1,1 @@
-# 動作：尤尼恩歪頭
-# 觸發時機：t=40 (line2)
-# 對應台詞：(將玩家傳送至水靈座)
-# PENDING: 實作此動作
+# (已改為 action 軌 inline anim_trs: union breath->sidehead)

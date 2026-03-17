@@ -93,10 +93,9 @@ updated: 2026-03-16
 
 ## D. 木區 (Grass)
 
-### D1 [BUG] 第1段木神朝向/動畫 🔴 待決策
+### D1 [BUG] 第1段木神朝向/動畫 ✅
 
-- 問題：木神應看向南側花朵點頭，目前朝向不對
-- **需要確認**：木神應該面朝哪個方向？花朵的確切座標？
+- 修正：木神面向 -1392 6 1900（南方花朵），scene_camera Rotation NBT 修正
 
 ### D2 [BUG] 第2段同上 🔴 待決策
 
@@ -139,11 +138,40 @@ updated: 2026-03-16
 
 ---
 
+## F. 水靈座大門 (Water Gate)
+
+### F1 [FEATURE] water_gate 開門動畫 ✅
+
+- 修正：fill -1746 25 1558 -1752 12 1558 air + 白色爆炸粒子
+- reset_triggers 加 clone 從 -1758 26 1392 -1764 12 1392 還原門
+- 鏡頭修正為面向門 (z=1558 南側)
+
+### F2 [BUG] water_gate 鏡頭沒有看向門 ✅
+
+- 修正：scene_camera Rotation NBT + facing 修正
+
+### F3 [BUG] water_gate 結束後摔落 ✅
+
+- 修正：cleanup 加 slow_falling 5s，schedule fade_from_black 60t
+
+---
+
+## G. 水源大堂 (Water2) 試煉門
+
+### G1 [FEATURE] water2 四道試煉門開門動畫 ✅
+
+- clone 空氣模板 -1755 25 1376 ~ -1755 12 1382 開門
+- clone 門框模板 -1755 25 1384 ~ -1755 12 1390 關門（reset_triggers）
+- 白色爆炸粒子（flash/explosion/end_rod/cloud）+ 音效
+- 鏡頭依序帶到四門（60t 間隔）再回角色位置
+
+---
+
 ## 全域修正（跨場景）
 
 ### 台詞間隔調整 ✅
 
-- 全場景 text 軌間隔 60→100 ticks（3秒→5秒）
+- 全場景 text 軌間隔 100→80 ticks（5秒→4秒）
 - action/ctrl/villager 軌時間同步縮放
 - 工具：`tools/rescale_timing.py`
 

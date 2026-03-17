@@ -45,5 +45,9 @@ scoreboard players set light4_trigger light_story 0
 scoreboard objectives add skip_scene trigger
 scoreboard players set _skip_triggered dialog_timer 0
 
+# 強制載入門模板區塊（clone 需要來源區塊在載入範圍）
+# 模板位置: 水靈座門 (-1758~-1764, z=1392), 試煉門 (-1755, z=1376~1390)
+forceload add -1764 1376 -1755 1392
+
 data modify storage dialogtest:story run.playing set value 0b
 
