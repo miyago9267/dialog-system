@@ -1,3 +1,7 @@
+# 啟動暖機：跳過前 N tick，等客戶端載入資源包
+execute if score _warmup dialog_timer matches 1.. run scoreboard players remove _warmup dialog_timer 1
+execute if score _warmup dialog_timer matches 1.. run return 0
+
 # 清除非播放時的殘留跳過分數（防止跳過下一段劇情）
 execute unless data storage dialogtest:story {run:{playing:1b}} run scoreboard players set @a skip_scene 0
 

@@ -49,5 +49,8 @@ scoreboard players set _skip_triggered dialog_timer 0
 # 模板位置: 水靈座門 (-1758~-1764, z=1392), 試煉門 (-1755, z=1376~1390)
 forceload add -1764 1376 -1755 1392
 
+# 啟動暖機：等待 100 tick (5秒) 讓客戶端載入資源包模型
+scoreboard players set _warmup dialog_timer 100
+
 data modify storage dialogtest:story run.playing set value 0b
 

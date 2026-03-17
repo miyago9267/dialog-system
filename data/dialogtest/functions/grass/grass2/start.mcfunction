@@ -3,9 +3,9 @@ scoreboard players set grass2_triggered grass_story 1
 
 # ── 場景設置（站位） ──────────────────────────────────────────
 gamemode spectator @a
-execute positioned -1215 5 1794 facing -1214 6 1784 run function animated_java:character/summon {args: {variant: 'woodgod'}}
+execute positioned -1215 5 1794 facing -1216 5 1790 run function animated_java:character/summon {args: {variant: 'woodgod'}}
 execute positioned -1215 5 1794 run tag @e[sort=nearest,limit=1,tag=aj.character.root] add woodgod
-execute as @e[tag=woodgod] at @s run tp @s ~ ~ ~ facing -1214 6 1784
+execute as @e[tag=woodgod] at @s run tp @s ~ ~ ~ facing -1216 5 1790
 summon text_display -1215 7 1794 {text:'{"text":"木神","color":"green","bold":true}',billboard:"center",Tags:["grass2_entity"]}
 
 execute positioned -1212 6 1787 facing -1215 5 1794 run function animated_java:character/summon {args: {variant: 'union'}}
