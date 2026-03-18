@@ -13,3 +13,5 @@ tools/output.json
 # AI 本地追蹤
 docs/ai/
 .claude/
+AGENTS.md
+.markdownlint.json
