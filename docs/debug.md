@@ -1,8 +1,8 @@
-# Debug 與工具
+# Debug 小抄
 
 ---
 
-## 遊戲內 Debug 小抄
+## 時間軸狀態
 
 ```mcfunction
 # 查看當前時間軸完整狀態
@@ -14,7 +14,13 @@ scoreboard players get _scene_tick dialog_timer
 # 強制結束場景
 data modify storage dialogtest:story run.playing set value 0b
 data remove storage dialogtest:story run.mode
+```
 
+---
+
+## 觸發器重設
+
+```mcfunction
 # 重設觸發旗標（允許重新觸發）
 scoreboard players set fire1_triggered fire_story 0
 
@@ -24,29 +30,11 @@ scoreboard players set _fire1_villager_walking dialog_timer 0
 
 ---
 
-## 遷移工具
+## AJ 角色
 
-`tools/migrate_to_timeline.py` 可批次將舊版 N.mcfunction 場景轉換為時間軸格式。
-
-```bash
-# 預覽（不寫入）
-python tools/migrate_to_timeline.py --dry-run
-
-# 正式執行
-python tools/migrate_to_timeline.py
-```
-
-功能：
-
-- 自動偵測所有含編號步驟的場景目錄
-- 提取 translate key、cd 值、PlayerName 判斷
-- 生成新的 `start.mcfunction`（保留原有場景設置，替換 `run.*` 設定）
-- 刪除舊的 `N.mcfunction` 檔案
-
-如需跳過已手動遷移的場景，在腳本中設定 `SKIP`：
-
-```python
-SKIP = {"fire/fire1"}
+```mcfunction
+# 手動移除（替換 MY_TAG 為實際標籤）
+execute as @e[tag=MY_TAG] run function animated_java:character/remove/this
 ```
 
 ---
@@ -71,8 +59,6 @@ data remove storage dialogtest:story run.mode
 ```
 
 ### AJ 角色卡住
-
-手動移除（替換 MY\_TAG 為實際標籤）：
 
 ```mcfunction
 execute as @e[tag=MY_TAG] run function animated_java:character/remove/this

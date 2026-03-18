@@ -26,12 +26,21 @@ Variant 決定角色外觀（模型 / 材質），在召喚時指定。
 | `migale` | 米格拉 |
 | `blackforge` | 黑鍛 |
 | `union` | 尤尼恩 |
+| `union_late` | 尤尼恩（後期） |
 | `dandebondo` | 丹德邦多 |
 | `shliaka` | 什里亞卡 |
+| `shliaka_boss` | 什里亞卡（BOSS） |
 | `firegod` | 火神 |
 | `lightgod` | 光神 |
 | `watergod` | 水神 |
 | `woodgod` | 木神 |
+| `aila` | 艾拉 |
+| `shalinsi` | 莎林斯 |
+| `phient` | 費恩特 |
+| `memoris` | 梅莫利斯 |
+| `adrelie` | 阿多賽忒喀 |
+| `esalas` | 伊薩拉斯 |
+| `yaozike` | 姚子克 |
 
 ---
 
