@@ -55,6 +55,7 @@ pages:[\
 {"text":"[重置觸發點]\\n\\n","color":"red","clickEvent":{"action":"run_command","value":"/function dialogtest:reset_triggers"}},\
 {"text":"[保留 ON] ","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set _keep_triggers dialog_timer 1"}},\
 {"text":"[保留 OFF]\\n\\n","color":"red","clickEvent":{"action":"run_command","value":"/scoreboard players set _keep_triggers dialog_timer 0"}},\
-{"text":"[再次取得書本]","color":"light_purple","clickEvent":{"action":"run_command","value":"/function dialogtest:debug_book"}}\
+{"text":"[再次取得書本]\\n","color":"light_purple","clickEvent":{"action":"run_command","value":"/function dialogtest:debug_book"}},\
+{"text":"[開啟聊天面板]","color":"gold","clickEvent":{"action":"run_command","value":"/function dialogtest:debug_panel"}}\
 ]'\
 ]}
