@@ -30,8 +30,12 @@ kill @e[tag=fire1]
 kill @e[tag=fire2_entity]
 kill @e[tag=fire2_pillar]
 kill @e[tag=fire2_pillar2]
+kill @e[tag=grass4_entity]
 
 # 停止 fire1 村民移動
 scoreboard players set _fire1_villager_walking dialog_timer 0
+
+# 停止 grass4 罌粟跟蹤
+scoreboard players set _grass4_poppy_tracking dialog_timer 0
 
 tellraw @a {"text":"[劇情已跳過]","color":"yellow","italic":true}
