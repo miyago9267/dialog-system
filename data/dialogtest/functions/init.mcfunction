@@ -53,5 +53,8 @@ forceload add -1764 1376 -1755 1392
 # 啟動暖機：等待 100 tick (5秒) 讓客戶端載入資源包模型
 scoreboard players set _warmup dialog_timer 100
 
+# 清除殘留的 AJ 角色（場景中途退出時 cleanup 未執行的殘留 entity）
+execute as @e[tag=aj.character.root] run function animated_java:character/remove/this
+
 data modify storage dialogtest:story run.playing set value 0b
 

@@ -10,6 +10,9 @@ execute if score _scene_tick dialog_timer matches 1 run effect give @a darkness 
 execute if score _scene_tick dialog_timer matches 1 run effect give @a blindness 999 0 true
 execute if score _scene_tick dialog_timer matches 1 run gamemode spectator @a
 
+# tick 5：強制重新套用 AJ variant 材質（修復載入後材質不顯示）
+execute if score _scene_tick dialog_timer matches 5 run function dialogtest:operations/refresh_aj_variants
+
 # tick 25：清除黑幕、啟用跳過按鈕、所有 AJ 角色開始呼吸
 execute if score _scene_tick dialog_timer matches 25 run function dialogtest:operations/transition/fade_from_black
 execute if score _scene_tick dialog_timer matches 25 run scoreboard players enable @a skip_scene
